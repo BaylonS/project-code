@@ -1,0 +1,452 @@
+[
+  {
+    "path": "projects/aerolog-offline/AeroLog.html",
+    "bytes": 1673430,
+    "sha256": "b5eb83111fc26c7674d9ee001807b34b6d7eb345506821913b8efc10a3a0cd59"
+  },
+  {
+    "path": "projects/aerolog-offline/README.txt",
+    "bytes": 427,
+    "sha256": "b0963d11277cb5ab8a2bc04822869200f3cdbda00fd5c0cc664c7e9ddd8d07c5"
+  },
+  {
+    "path": "projects/icarus-mount-editor/.gitignore",
+    "bytes": 501,
+    "sha256": "23541cb4bec361acb89e32694ee58786709de27970b509e876b08b9fdb960ce3"
+  },
+  {
+    "path": "projects/icarus-mount-editor/add_all_current_mounts.py",
+    "bytes": 2286,
+    "sha256": "2e3165b9a5b6259613c7df4d8ca433f15c7ebc42b6583e9913074b6de783a52d"
+  },
+  {
+    "path": "projects/icarus-mount-editor/CLAUDE.md",
+    "bytes": 7302,
+    "sha256": "59e206267ea0f26712c6b418e1a6a9c9dac2a4fa9f4397df952427e6069b8838"
+  },
+  {
+    "path": "projects/icarus-mount-editor/LICENSE",
+    "bytes": 1093,
+    "sha256": "efc93f858a941358a2e8a96c81047dfdd69986362918750f44498de57294960b"
+  },
+  {
+    "path": "projects/icarus-mount-editor/mount_cli.py",
+    "bytes": 26203,
+    "sha256": "027d50f02eb40430f02de601ea336f9a20474a1dce391b8d4d0f20221ade2c24"
+  },
+  {
+    "path": "projects/icarus-mount-editor/mount_editor.py",
+    "bytes": 26857,
+    "sha256": "76d378f5558df77c22ad88d844c6a873d1bca1a55f82b40c4b03f17beed0dd18"
+  },
+  {
+    "path": "projects/icarus-mount-editor/mount_types.py",
+    "bytes": 10551,
+    "sha256": "1a7f6d6e996c4a211c5959d78708983061220eff17eb7c897baee69527a129c1"
+  },
+  {
+    "path": "projects/icarus-mount-editor/README.md",
+    "bytes": 12361,
+    "sha256": "481cb47d899948f7f8813d78d63ffaa93470f0bcfeb96486ecb2c9a8058597c6"
+  },
+  {
+    "path": "projects/icarus-mount-editor/SCHEMA.md",
+    "bytes": 12062,
+    "sha256": "d8ea3e2ab98f797bf51b65a07939ff628fae788070e30fef4d96e5fbdb927d5b"
+  },
+  {
+    "path": "projects/icarus-mount-editor/SECURITY.md",
+    "bytes": 1061,
+    "sha256": "d108a2dd4449a2e07692481f389bb16ee92aef911e9f1f10bff1f23c09fac732"
+  },
+  {
+    "path": "projects/icarus-mount-editor/test_cli.py",
+    "bytes": 18397,
+    "sha256": "3e886c3988a2c9d761296ed5a242da7e30d3c17a67d7d0efde4a075656bfab84"
+  },
+  {
+    "path": "projects/icarus-mount-editor/ue4_properties.py",
+    "bytes": 33761,
+    "sha256": "16680df0e7b960f4ecee659e2d1f27a77e0d3906d6e1a666a334d1c37a03464a"
+  },
+  {
+    "path": "projects/icarus-tools/add_maxed_icarus_character.py",
+    "bytes": 5134,
+    "sha256": "1f7cba207889e7f00f540bffd88785e4616083aa37412851d64f4752f03c50f8"
+  },
+  {
+    "path": "projects/icarus-tools/analyze_icarus_mount_catalog.py",
+    "bytes": 2166,
+    "sha256": "8482ec20fd250b1658f74bff836f623d40614d4d0d0054efbb2c48284467c35b"
+  },
+  {
+    "path": "projects/icarus-tools/analyze_icarus_talents.py",
+    "bytes": 4178,
+    "sha256": "db7ad4ac71dedad998ab2fbbc55aeac2b560848ebcf15375f7171711f135f6ff"
+  },
+  {
+    "path": "projects/ksp-gps-tools/add_real_gps_constellation.py",
+    "bytes": 9251,
+    "sha256": "31018902eec7a84abd5194cea2434d736259c0361cfd532247d7416f5bfa6ce4"
+  },
+  {
+    "path": "projects/ksp-gps-tools/check_gps_coverage.py",
+    "bytes": 5933,
+    "sha256": "3784537b40538ceba64bdb465e1dfd71e7612c932aad2b17f2d729cf93c3cab9"
+  },
+  {
+    "path": "projects/ksp-gps-tools/fix_gps_launch_ids.py",
+    "bytes": 2279,
+    "sha256": "f219f7437b46c28bf42d743d05ac9d8e4899286751df624b6003a581850407d1"
+  },
+  {
+    "path": "projects/ksp-gps-tools/remove_gps_debris.py",
+    "bytes": 2740,
+    "sha256": "d0988bbd7e08a7e5e79dab2aea29ddd4185befb2c523dfe304f914fb853a5f31"
+  },
+  {
+    "path": "projects/ksp-gps-tools/respace_gps_constellation.py",
+    "bytes": 4247,
+    "sha256": "f3a2d477ecdd2ed48cb744cba7cef637e6c79c617e45323dc6868e94b3614974"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/activity.js",
+    "bytes": 3322,
+    "sha256": "930f4e85dc110b30e54160cd31ba589ef353aa15d47ed44c111ccfa585aa4eb0"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/analytics.html",
+    "bytes": 8785,
+    "sha256": "5486c4553f23589705ac0eb83c20c200ab46c1cdc06cb5896525920d2af83bf4"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/analytics.js",
+    "bytes": 3328,
+    "sha256": "38e1682e1cf3c55100dcef87c1eb0e58217eafb93e0eb1c9d50bc7a28cbc2c4e"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/favicon.svg",
+    "bytes": 718,
+    "sha256": "3e8863288c2d43dd33d2a71de317dcf9198f09932ea8d61e0def1b846a865435"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/feedback.js",
+    "bytes": 3714,
+    "sha256": "8ec0c85f9b9eb721fff1c99a16c1ded7becb900a10d8b9b29fb993d710fadf95"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/index.html",
+    "bytes": 11345,
+    "sha256": "2165096eaf55ecaaaec5c421fc4e77081a257637ac33477dfedbde0ff6611d7e"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/insight-extras.js",
+    "bytes": 3318,
+    "sha256": "7cce0f288eb8bc9fe56d11074fd5a26a5642263e586f952930ff6e7f92026d1b"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/lookup.js",
+    "bytes": 4863,
+    "sha256": "aebf0b2e1ffbf202aab50ef052236c77364a776929c0ba256493b4aaf658591f"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/mel.js",
+    "bytes": 2375,
+    "sha256": "e9fc3dbc6125f1b40222da17c59eb859e2515343097dd82ebadb6e6d0c93650f"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/notes.js",
+    "bytes": 1244,
+    "sha256": "9c2c23d9c57199b639bd76020ba8105222bd999e65b3ef97d617ddaa78e5e61b"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/page-text.js",
+    "bytes": 1305,
+    "sha256": "35161a2efd3124aace0f904dc1c0248b70d7887b54063e660ebe9fe8b4bc3c56"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/reader-search.js",
+    "bytes": 2322,
+    "sha256": "4f07957e736a9ad998914fdb347c7a12aca74844ff82624f0979c838b5586ae5"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/reader.html",
+    "bytes": 4822,
+    "sha256": "1bb19a89dbc00686a595f33d2fcb0cafebd40be9fb16684907d70369ac5aa5c9"
+  },
+  {
+    "path": "projects/las-mx-selfhost/public/reader.js",
+    "bytes": 3217,
+    "sha256": "e98756cb4836a902920206a1c081abfc2912af1f834b7f65b64496116bacaa29"
+  },
+  {
+    "path": "projects/las-mx-selfhost/routes/events.mjs",
+    "bytes": 2136,
+    "sha256": "72c76a869d48f453286f7207ecd8e0e0ba86caeac45e5a3e8b61cfba84e2cfb6"
+  },
+  {
+    "path": "projects/las-mx-selfhost/routes/feedback.mjs",
+    "bytes": 2461,
+    "sha256": "908e1c0ba36fb45fb9de91e3d578e7c9c9ee81732c1cac95d20ca9644d3ba203"
+  },
+  {
+    "path": "projects/las-mx-selfhost/routes/me.mjs",
+    "bytes": 136,
+    "sha256": "f23d0dc3c98929d7cbfa22aad353741fbaa9e859361ab1e5841f948fd14f08f2"
+  },
+  {
+    "path": "projects/las-mx-selfhost/routes/stats.mjs",
+    "bytes": 1301,
+    "sha256": "2926fe3a959d3268d7d9719bb9d79a52e0230df02494337df21cf6a1b7a1c5a2"
+  },
+  {
+    "path": "projects/las-mx-selfhost/schema.sql",
+    "bytes": 819,
+    "sha256": "5bd3801e86f56b64d1fb3ad340ac1cd2f50f664d3dd42beeecb3213ed956d466"
+  },
+  {
+    "path": "projects/las-mx-selfhost/server.mjs",
+    "bytes": 7758,
+    "sha256": "cc3840af485aa1677758073025f3165a316386ea3fcc300d8b1aa30338fc64fb"
+  },
+  {
+    "path": "projects/las-mx-selfhost/shared.mjs",
+    "bytes": 996,
+    "sha256": "e10274104fb87a1fdbf7f269b6372453dbdaa5c5c4388d42329e704207589a83"
+  },
+  {
+    "path": "projects/las-mx-selfhost/SOURCE-NOTES.md",
+    "bytes": 398,
+    "sha256": "44ca3e1ad0867ba60f75fa83bbab3ba009dd582097046fd4b47c2c71fc430bf9"
+  },
+  {
+    "path": "projects/las-turnover-offline/LAS Turnover.html",
+    "bytes": 68070,
+    "sha256": "ab7a7687f36a3f3a7df20d559dab348fbda75a08242efa9563443eaf7e13c130"
+  },
+  {
+    "path": "projects/las-turnover-offline/SOURCE-NOTES.md",
+    "bytes": 454,
+    "sha256": "aacbf4d2ffa2261df3f57b21e74672754e30e518921acbaaf945fe1aa28f3b18"
+  },
+  {
+    "path": "projects/las-turnover-offline/START HERE.txt",
+    "bytes": 5338,
+    "sha256": "f4dac0883a83ffaa465598f7b6eccc82b27fca3c09428865a100a8cc9637e23c"
+  },
+  {
+    "path": "projects/minddrop/.env.example",
+    "bytes": 329,
+    "sha256": "50a91e8674dcc39d8a285f2fa20677f83a2947a8a25eff1332e696e51fbb3809"
+  },
+  {
+    "path": "projects/minddrop/app/db.py",
+    "bytes": 13459,
+    "sha256": "f9803162a1286a4c4496a6bf368cbcfbb0081a424503e4319a6383a13a030c8b"
+  },
+  {
+    "path": "projects/minddrop/app/llm.py",
+    "bytes": 2855,
+    "sha256": "afb1100309bc6943cfc07527004d9e0f9d7812e597066d3bc0142b5742576960"
+  },
+  {
+    "path": "projects/minddrop/app/main.py",
+    "bytes": 9153,
+    "sha256": "47d74f79af0314867c5ef65aa24dd18304af1fa506257b2c78183f9dd7570231"
+  },
+  {
+    "path": "projects/minddrop/app/static/app.js",
+    "bytes": 13485,
+    "sha256": "8d401e0189c11735118bceef53860b9924f578826cc3d7865a6bdd726d997be9"
+  },
+  {
+    "path": "projects/minddrop/app/static/styles.css",
+    "bytes": 8513,
+    "sha256": "a394c304f0a7d35de9e7027c02d524fdbc9e9528238baac969891f1a8828c66d"
+  },
+  {
+    "path": "projects/minddrop/app/static/webhook_helper.js",
+    "bytes": 1179,
+    "sha256": "ac5f3c318248e596beec6c6f26425cff1c8cbbaf662eaa36107e334e10d317fe"
+  },
+  {
+    "path": "projects/minddrop/app/templates/index.html",
+    "bytes": 3475,
+    "sha256": "05bda26c206c9bbab4ca87499a592472a88871441cdc3acc60b5e4a234dc23f1"
+  },
+  {
+    "path": "projects/minddrop/app/templates/webhook_helper.html",
+    "bytes": 2433,
+    "sha256": "70b1919b8d48d4490f6ff739f93a5750bfbea1b236fa13f6a366a0879a61ffcc"
+  },
+  {
+    "path": "projects/minddrop/docker-compose.yml",
+    "bytes": 279,
+    "sha256": "77da95c31bed207e1de5f07a0638c64020d1fb138215602864ebfa3143b90b99"
+  },
+  {
+    "path": "projects/minddrop/Dockerfile",
+    "bytes": 267,
+    "sha256": "0d6beb269fff8ff60c3baf504695db60ca7fcf5447b373eba53811ccfe8c90e1"
+  },
+  {
+    "path": "projects/minddrop/README.md",
+    "bytes": 3527,
+    "sha256": "29c39925d43a71dc87f3ed4d047904f0a8ab326e5f37fa66726378fb4017b50e"
+  },
+  {
+    "path": "projects/minddrop/requirements.txt",
+    "bytes": 116,
+    "sha256": "aa1734ea21c78204e136fbab35f3de0d5203f56071f9d8809e33ffda8b37f3cc"
+  },
+  {
+    "path": "projects/server-dashboard/add-to-existing-grafana.ps1",
+    "bytes": 7064,
+    "sha256": "fdac3f6e193daab73edf607efa21ec7f7a1b176ba9a53b82addf57619f4dd35a"
+  },
+  {
+    "path": "projects/server-dashboard/adsb_ssh_probe.py",
+    "bytes": 2834,
+    "sha256": "b589017eccee1df35fe8a894fcc4af187d15b79a549b8d37719edc2c3d708fed"
+  },
+  {
+    "path": "projects/server-dashboard/monitor-dashboard-exporter.ps1",
+    "bytes": 487,
+    "sha256": "1fb5700a7cec438625bcc0e6758684ff483914f338a859eea13081af17e84279"
+  },
+  {
+    "path": "projects/server-dashboard/package.json",
+    "bytes": 189,
+    "sha256": "073dd0c9903eb022d24310d3d8eb19fd57df0b4dd384fc8c09b38e2d1eeb2e9a"
+  },
+  {
+    "path": "projects/server-dashboard/prometheus-scrape-codex-dashboard.yml",
+    "bytes": 162,
+    "sha256": "6228cbf0df286bbb48afbbd4da2d32f793e92d58401b7eef9a0bcb959650152f"
+  },
+  {
+    "path": "projects/server-dashboard/public/app.js",
+    "bytes": 18444,
+    "sha256": "b3d550963a44649c94bde71534f8cb8d81f8b0030b45aa35865bafea97d7a3b3"
+  },
+  {
+    "path": "projects/server-dashboard/public/index.html",
+    "bytes": 7663,
+    "sha256": "e42305f80d1c7ede8d199a9ebfe54e40d1f287d60bc2efe45b6cf37abaefadc6"
+  },
+  {
+    "path": "projects/server-dashboard/public/styles.css",
+    "bytes": 8509,
+    "sha256": "10a03b37170484f91a37a0f100c1cef3d70d08f93929cf5fc92f0480074257eb"
+  },
+  {
+    "path": "projects/server-dashboard/README.md",
+    "bytes": 3393,
+    "sha256": "ac0256b4a9332bbfa16e4d01606d75980633bed8211de2f688328be99ffda87a"
+  },
+  {
+    "path": "projects/server-dashboard/server.js",
+    "bytes": 35541,
+    "sha256": "675e44015726df2b7091d194ac24e38ace31912f3fcea4401d0de9a1f30f154d"
+  },
+  {
+    "path": "projects/server-dashboard/start-dashboard-exporter.ps1",
+    "bytes": 578,
+    "sha256": "47d2371b855ad87e6ae1cf5d2ea0f332cf840b40abebee3c98752b1e22d63a64"
+  },
+  {
+    "path": "projects/skywatch/app.py",
+    "bytes": 13015,
+    "sha256": "47874029eb64c9919ed082fbd72601249eb4cde8c2d3f280cfd7322de02eccbd"
+  },
+  {
+    "path": "projects/skywatch/skywatch.service",
+    "bytes": 408,
+    "sha256": "7e12d9c0e53675860a056d7191c438bc48f72151ff8cee095e8c3f7a68a00c13"
+  },
+  {
+    "path": "projects/skywatch/static/app.js",
+    "bytes": 7351,
+    "sha256": "924d868e2b119c01237ada16e817627ace68d12394cd9f157e6202c309534ee3"
+  },
+  {
+    "path": "projects/skywatch/static/index.html",
+    "bytes": 1785,
+    "sha256": "0337c9423fd7d643a2e067a4de47fc5ef3a9dfa27d95e40ac61d30adae72b403"
+  },
+  {
+    "path": "projects/skywatch/static/styles.css",
+    "bytes": 4119,
+    "sha256": "4cf5c716e65263dd40d98f72d0eae5ebf61797433c2599467849fc5242a3a0b1"
+  },
+  {
+    "path": "projects/tars-and-airnavx/airnavx_indexer.py",
+    "bytes": 16246,
+    "sha256": "6bcdcdd534dee6f42e1e9c02236f6e6b9ac0aa16605d5bdc58b3375d49440b76"
+  },
+  {
+    "path": "projects/tars-and-airnavx/airnavx_search_server.py",
+    "bytes": 19229,
+    "sha256": "2b7925f233837c18cefc3044cb5ec6f4890ce928192e0df09c6cc86c4ce41f80"
+  },
+  {
+    "path": "projects/tars-and-airnavx/mel_supplement_index.py",
+    "bytes": 5711,
+    "sha256": "46b7d46dadfa2c5437b2101f94058f7c510ef0e2b44ee916fb9ee304a7c531e7"
+  },
+  {
+    "path": "projects/tars-and-airnavx/merge_mel_supplement_ct.py",
+    "bytes": 2288,
+    "sha256": "531c47ed902befc1bbefa4161a109825f9d4ffc5101a6a294c74085fda77841b"
+  },
+  {
+    "path": "projects/tars-and-airnavx/merge_pdf_supplement_ct.py",
+    "bytes": 2070,
+    "sha256": "abebe5b1d38f4985d74885347f463682159a151fad1040d01416fdc44b4324ba"
+  },
+  {
+    "path": "projects/tars-and-airnavx/merge_web_supplement_ct.py",
+    "bytes": 2280,
+    "sha256": "2010abcd984ceff828fe8fdca3613e6c15eb6b17358f99aead1251c3ee8e59f3"
+  },
+  {
+    "path": "projects/tars-and-airnavx/openwebui_airnavx_ct_tool.py",
+    "bytes": 68176,
+    "sha256": "782eb6bcfc768e38d1bc6d17b35a8069196f3a8594d8eb8d3858c06a59816332"
+  },
+  {
+    "path": "projects/tars-and-airnavx/openwebui_airnavx_index_tool.py",
+    "bytes": 6071,
+    "sha256": "19e9ede0a6d4a2d0e38813ed50d9109c2c2d780d861514dd857c21ccfcb909d2"
+  },
+  {
+    "path": "projects/tars-and-airnavx/openwebui_airnavx_tool.py",
+    "bytes": 16870,
+    "sha256": "4f14d3154b6fa88b540fff600270f14af5e64021e02d739754f3f7638bedcf62"
+  },
+  {
+    "path": "projects/tars-and-airnavx/openwebui_local_device_search_tool.py",
+    "bytes": 4898,
+    "sha256": "247dd356119bbb502765279e73dd5677363d3534bd8f8f40f69eb9010d6b12cc"
+  },
+  {
+    "path": "projects/tars-and-airnavx/pdf_supplement_index.py",
+    "bytes": 5406,
+    "sha256": "f607a7f15458f7ad7940da0bfa9d4c0e86620c75edf30e69a966e0670b883fad"
+  },
+  {
+    "path": "projects/tars-and-airnavx/README.md",
+    "bytes": 860,
+    "sha256": "2f2b7168840e129ba6576bcf04f2063d0962e72e544e568ed0200d22c6d4c3eb"
+  },
+  {
+    "path": "projects/tars-and-airnavx/tars_pythonista.py",
+    "bytes": 9049,
+    "sha256": "58a694999cbdc6de4078da400212122eab8205078ed9c7d843a9d0f20eacb4b0"
+  },
+  {
+    "path": "projects/tars-and-airnavx/web_supplement_index.py",
+    "bytes": 13794,
+    "sha256": "d6071a6a22813a72512c44129bc62bdd2b10e5047839e02d06ee1142f0e0e0be"
+  }
+]
