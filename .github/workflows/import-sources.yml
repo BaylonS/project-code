@@ -1,0 +1,28 @@
+name: Import reviewed project sources
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-sources.yml'
+      - 'source-bundle.zip'
+      - 'SOURCE_MANIFEST.json'
+      - 'import_sources.py'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Verify and expand reviewed source archive
+        run: python3 import_sources.py
+      - name: Commit editable project files
+        run: |
+          git add -- projects
+          if git diff --cached --quiet; then exit 0; fi
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Import reviewed project source snapshots'
+          git push
