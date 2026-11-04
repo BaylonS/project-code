@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkyWatch Tactical</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="radar-stage">
+      <canvas id="radar" width="1200" height="900"></canvas>
+      <div class="hud top-left">
+        <div class="kicker">SKYWATCH TACTICAL</div>
+        <div class="title">ADSB LOCAL RADAR</div>
+        <div id="source" class="muted"></div>
+      </div>
+      <div class="hud top-right">
+        <div class="metric"><span id="liveCount">0</span><label>contacts</label></div>
+        <div class="metric"><span id="posCount">0</span><label>tracked</label></div>
+        <div class="metric"><span id="msgCount">0</span><label>msgs</label></div>
+      </div>
+      <div class="sweep-label" id="status">LINK INIT</div>
+    </section>
+
+    <aside class="panel">
+      <div class="tabs">
+        <button class="tab active" data-view="contacts">Contacts</button>
+        <button class="tab" data-view="log">Log</button>
+      </div>
+      <div id="contactsView" class="view active">
+        <div class="section-title">Priority Track</div>
+        <div id="priority" class="priority">Waiting for aircraft...</div>
+        <div class="section-title">Live Contacts</div>
+        <div id="contacts" class="contacts"></div>
+      </div>
+      <div id="logView" class="view">
+        <div class="search-row">
+          <input id="search" placeholder="hex or callsign">
+          <button id="refreshLog">Refresh</button>
+        </div>
+        <div id="logStats" class="muted"></div>
+        <div id="log" class="log"></div>
+      </div>
+    </aside>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

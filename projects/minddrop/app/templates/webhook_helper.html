@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ app_name }} Webhook Helper</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell helper-shell">
+      <section class="panel">
+        <div class="brand compact">
+          <span class="mark">M</span>
+          <div>
+            <h1>Webhook Helper</h1>
+            <p>Send a test chunk, then copy the same settings into your automation tool.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel helper-grid">
+        <form id="testForm">
+          <h2>Test Send</h2>
+          <label>Account email <input name="user_email" type="email" placeholder="you@example.com" required /></label>
+          <label>Intake token <input name="token" type="password" placeholder="Paste intake token" required /></label>
+          <label>Note <textarea name="body" placeholder="Type a note to send to MindDrop..." required></textarea></label>
+          <label>Tags <input name="tags" placeholder="automation, test" /></label>
+          <label>Visibility
+            <select name="visibility">
+              <option value="private">Private</option>
+              <option value="team">Team</option>
+            </select>
+          </label>
+          <button type="submit">Send Test Chunk</button>
+          <p id="notice" class="notice"></p>
+        </form>
+
+        <div>
+          <h2>Automation Settings</h2>
+          <div class="code-card">
+            <p><strong>Method</strong></p>
+            <pre>POST</pre>
+            <p><strong>URL</strong></p>
+            <pre id="webhookUrl"></pre>
+            <p><strong>Headers</strong></p>
+            <pre>{
+  "Authorization": "Bearer YOUR_INTAKE_TOKEN",
+  "Content-Type": "application/json"
+}</pre>
+            <p><strong>JSON body</strong></p>
+            <pre>{
+  "user_email": "you@example.com",
+  "body": "Your note text goes here",
+  "source_type": "automation",
+  "visibility": "private",
+  "tags": ["automation"]
+}</pre>
+          </div>
+          <p class="notice">If a tool shows raw JSON, look for a button or toggle named Body, JSON, Raw, or Parameters. The URL alone is not editable because it is just the receiving endpoint.</p>
+        </div>
+      </section>
+    </main>
+    <script src="/static/webhook_helper.js"></script>
+  </body>
+</html>

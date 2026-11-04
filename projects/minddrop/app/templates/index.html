@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="auth-panel" id="authPanel">
+        <div class="brand">
+          <span class="mark">M</span>
+          <div>
+            <h1>{{ app_name }}</h1>
+            <p>Your private feed for ideas, links, notes, and loose thoughts.</p>
+          </div>
+        </div>
+        <div class="auth-grid">
+          <form id="loginForm" class="panel">
+            <h2>Sign in</h2>
+            <label>Email <input name="email" type="email" autocomplete="email" required /></label>
+            <label>Password <input name="password" type="password" autocomplete="current-password" required /></label>
+            <button type="submit">Sign in</button>
+          </form>
+          <form id="signupForm" class="panel">
+            <h2>Create account</h2>
+            <label>Name <input name="display_name" autocomplete="name" /></label>
+            <label>Email <input name="email" type="email" autocomplete="email" required /></label>
+            <label>Password <input name="password" type="password" autocomplete="new-password" minlength="8" required /></label>
+            <label>Invite code <input name="invite_code" autocomplete="off" /></label>
+            <button type="submit">Join workspace</button>
+          </form>
+        </div>
+        <p class="notice" id="authNotice"></p>
+      </section>
+
+      <section class="app-panel hidden" id="appPanel">
+        <header class="topbar">
+          <div class="brand compact">
+            <span class="mark">M</span>
+            <div>
+              <h1>{{ app_name }}</h1>
+              <p id="userLine"></p>
+            </div>
+          </div>
+          <button id="logoutButton" class="ghost">Sign out</button>
+        </header>
+
+        <section class="capture">
+          <form id="chunkForm">
+            <textarea name="body" placeholder="Drop a thought, link, meeting note, task, or raw idea..." required></textarea>
+            <div class="capture-controls">
+              <input name="source_url" placeholder="Optional source URL" />
+              <input name="tags" placeholder="Optional tags, comma separated" />
+              <select name="visibility">
+                <option value="private">Private</option>
+                <option value="team">Team</option>
+              </select>
+              <button type="submit">Capture</button>
+            </div>
+          </form>
+          <p id="captureNotice" class="notice"></p>
+        </section>
+
+        <section class="toolbar">
+          <input id="searchInput" placeholder="Search everything..." />
+          <select id="scopeSelect">
+            <option value="all">All</option>
+            <option value="private">Private</option>
+            <option value="team">Team</option>
+          </select>
+          <select id="tagSelect">
+            <option value="">All tags</option>
+          </select>
+          <button id="randomButton" class="ghost">Random</button>
+        </section>
+        <section class="tag-colors" id="tagColorPanel"></section>
+
+        <section id="randomCard" class="random-card hidden"></section>
+        <section id="chunks" class="chunks"></section>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

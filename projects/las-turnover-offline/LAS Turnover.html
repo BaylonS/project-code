@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LAS Turnover · Offline</title><style>:root{font-family:Segoe UI,Arial,sans-serif;color:#172820;background:#e9eeeb;font-size:13px}*{box-sizing:border-box}body{margin:0;height:100vh;display:flex;flex-direction:column}button,select,input,textarea{font:inherit}button{cursor:pointer;border:1px solid #bdc9c1;background:white;color:#193e2b;border-radius:5px;padding:7px 11px;font-weight:600}button:hover{background:#e8f3ec}button:disabled{opacity:.45;cursor:default}button:focus-visible,select:focus-visible{outline:2px solid #19874d;outline-offset:2px}.primary,#copy-open{background:#176a40;color:white;border-color:#176a40}header{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;background:white;border-bottom:1px solid #cbd5cd;gap:20px;flex-wrap:wrap}.title{display:flex;align-items:baseline;gap:13px}.title strong{font-size:18px;letter-spacing:.5px}.title span{font-size:10px;letter-spacing:1.5px;color:#687a6b}.actions{display:flex;gap:6px;flex-wrap:wrap}.toolbar{display:flex;align-items:center;gap:14px;padding:0 16px;background:#f6f8f6;min-height:45px;flex-wrap:wrap;border-bottom:1px solid #cbd5cd}.toolbar nav{display:flex;align-self:stretch;flex:1;gap:3px;flex-wrap:wrap}.toolbar nav button{border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;padding:12px 13px;color:#5b6e61;font-size:12px}.toolbar nav button[aria-selected=true]{color:#126237;border-bottom-color:#16854a;background:#e4eee7}.toolbar label{white-space:nowrap;font-size:12px;color:#52695b}.toolbar select{padding:4px;border:1px solid #becdc2;border-radius:4px;background:white}.hidden-toggle{display:flex;align-items:center;gap:4px}.formula-bar{min-height:39px;display:flex;align-items:center;gap:12px;background:white;padding:4px 16px;border-bottom:1px solid #bfcac3}#cell-address{width:100px;flex-shrink:0;font-weight:600}#formula-text{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#617166;font-size:12px}#edit-selected{padding:4px 10px;font-size:12px}#viewport{overflow:auto;flex:1;padding:16px;min-height:100px}#sheet-wrap{width:max-content;background:white;box-shadow:0 1px 6px #173c231f}#sheet{border-collapse:collapse;table-layout:fixed;background:white;color:#000}#sheet td{padding:0 2px;position:relative;overflow:hidden;cursor:cell;line-height:normal}#sheet td.selected{outline:3px solid #16864a;outline-offset:-3px;z-index:1}#sheet td:focus{outline:3px solid #16864a;outline-offset:-3px}#sheet .cell-content{max-width:100%;overflow:hidden}#sheet td[data-formula]{cursor:default}footer{background:#f7f9f7;border-top:1px solid #c2cec6;padding:8px 18px;display:flex;justify-content:space-between;font-size:11px;gap:12px}#save-state.error{color:#a31e24;font-weight:600}dialog{border:1px solid #b7c7bd;border-radius:9px;box-shadow:0 16px 70px #092a3655;width:min(560px,94vw);padding:24px;color:#20382a}dialog::backdrop{background:#182e2455}dialog h2{margin:0 0 14px;font-size:20px}dialog p{line-height:1.6;color:#52695b}dialog textarea,dialog select,dialog input[type=date]{width:100%;padding:11px;border:1px solid #a3b7aa;border-radius:4px;font-size:16px}dialog textarea{resize:vertical}.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.dialog-actions span{flex:1}.error{color:#b32727!important}#help-dialog{width:min(720px,94vw)}#toast{position:fixed;bottom:46px;left:50%;transform:translateX(-50%);background:#193e2b;color:white;padding:12px 20px;border-radius:6px;box-shadow:0 3px 20px #0003;max-width:90vw;z-index:20}[hidden]{display:none!important}@media(max-width:800px){header{padding:10px;gap:10px}.title span{display:none}.actions button{font-size:11px;padding:6px 8px}.toolbar{padding:0 8px;gap:7px}.toolbar nav button{padding:10px 8px;font-size:11px}.formula-bar{padding:4px 9px}#viewport{padding:8px}#sheet-note{display:none}footer{padding:8px}#cell-address{width:80px}}
+.file-bar{display:flex;align-items:center;gap:15px;padding:6px 18px;background:#fff7da;border-bottom:1px solid #dfd5af;font-size:12px;flex-wrap:wrap}.file-bar span{flex:1}.file-bar input{margin-left:7px;border:1px solid #b6c7bb;border-radius:4px;padding:5px 8px;width:190px}.file-bar button{padding:4px 9px}.log-scroll{max-height:60vh;overflow:auto}.log-scroll table{border-collapse:collapse;font-size:12px;width:100%}.log-scroll th,.log-scroll td{padding:8px;text-align:left;border-bottom:1px solid #d7e0d9;max-width:240px;overflow-wrap:anywhere;white-space:pre-wrap}.log-scroll th{background:#e9f1ec;position:sticky;top:0}#log-dialog{width:min(1100px,96vw)}
+.structure-bar{display:flex;align-items:center;gap:8px;padding:5px 18px;background:#f2f6f3;font-size:11px;flex-wrap:wrap}.structure-bar button{padding:4px 8px;font-size:11px}.structure-bar>span:last-child{margin-left:10px;color:#617166}.row-controls{position:absolute;right:2px;top:1px;display:flex;gap:2px;z-index:2}.row-controls button{font:700 13px Arial;padding:0;width:20px;height:17px;line-height:15px;border-radius:3px;background:#ffffffeb;color:#16532d;border:1px solid #609b75}
+@media print{@page{size:landscape;margin:8mm}body{height:auto;background:white;display:block}header,.toolbar,.formula-bar,.file-bar,.structure-bar,.row-controls,footer,dialog,#toast{display:none!important}#viewport{overflow:visible;padding:0;display:block}#sheet-wrap{box-shadow:none;zoom:var(--print-zoom,.45)!important}#sheet{print-color-adjust:exact;-webkit-print-color-adjust:exact}#sheet td.selected,#sheet td:focus{outline:none}#sheet tr{break-inside:avoid}}
+</style></head>
+<body>
+<header><div class="title"><strong>LAS TURNOVER</strong><span>FOLDER WORKBOOK</span></div><div class="actions"><button id="copy-open">Copy Open → Automated</button><button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button><button id="connect-file">Connect data file</button><button id="backup">Save backup</button><button id="restore">Restore backup</button><button id="export-excel">Export Excel</button><button id="print">Print / PDF</button><button id="help">Help</button></div></header>
+<div class="file-bar"><span id="file-status"></span><label>Editor name <input id="editor-name" maxlength="100" placeholder="Your name for the log" autocomplete="name"></label><button id="change-log">Change log</button></div>
+<div class="structure-bar"><span id="plane-count">18 aircraft sections</span><button id="remove-plane" aria-label="Remove empty last aircraft">− Aircraft</button><button id="add-plane" aria-label="Add aircraft">+ Aircraft</button><span>Use + / − on an aircraft’s workload or deferral heading to adjust its rows.</span></div>
+<div class="toolbar"><nav id="tabs" aria-label="Workbook sheets"></nav><label class="hidden-toggle"><input type="checkbox" id="hidden-sheets"> Testing tabs</label><label>Zoom <select id="zoom"><option value="fit">Fit width</option><option value="0.5">50%</option><option value="0.65">65%</option><option value="0.75">75%</option><option value="0.9">90%</option><option value="1">100%</option><option value="1.25">125%</option></select></label></div>
+<div class="formula-bar"><span id="cell-address">Select a cell</span><span id="formula-text">Click a cell to edit. Changes save on this browser and device.</span><button id="edit-selected" disabled>Edit cell</button></div>
+<main id="viewport" aria-label="Turnover workbook"><div id="sheet-wrap"><table id="sheet" aria-label="OPEN TURNOVER"></table></div></main>
+<footer><span id="save-state" role="status">Opening local storage…</span><span id="sheet-note">Open and Automated are separate copies.</span></footer>
+<input id="restore-file" type="file" accept=".json,application/json" hidden>
+<dialog id="editor"><form id="edit-form"><h2 id="edit-title">Edit cell</h2><p id="edit-note"></p><textarea id="edit-text" rows="5" spellcheck="true" aria-label="Cell value"></textarea><select id="edit-select" aria-label="Cell value" hidden></select><input id="edit-date" type="date" aria-label="Cell date" hidden><p id="edit-error" class="error" role="alert"></p><div class="dialog-actions"><button type="button" id="clear-cell">Clear</button><span></span><button type="button" id="cancel-edit">Cancel</button><button class="primary" type="submit">Apply</button></div></form></dialog>
+<dialog id="confirm"><h2 id="confirm-title"></h2><p id="confirm-body"></p><div class="dialog-actions"><button id="confirm-cancel">Cancel</button><button id="confirm-go" class="primary">Continue</button></div></dialog>
+<dialog id="file-dialog"><h2>Connect a turnover data file</h2><p>Choose a JSON file in your locally synced OneDrive / SharePoint folder. Changes will save to that file; OneDrive handles syncing it. The HTML and Excel source are not changed.</p><p><b>One editor at a time.</b> A synced folder does not support reliable simultaneous editing. This app checks for changed files before saving, but that cannot prevent every sync conflict between computers. Wait for OneDrive to finish syncing before handing over editing.</p><p>Choose <b>Connect folder (data + log)</b> to autosave both files. The first connection creates the files; later connections load them. The single-file options below save history inside the JSON, with CSV available through Change log → Export. Choose <b>New data file</b> for single-file setup. Other users choose <b>Open existing data file</b> and select the same synced JSON. Reconnect each time you open the app. Keep backup copies for each shift.</p><div class="dialog-actions"><button id="connect-folder" class="primary">Connect folder (data + log)</button></div><div class="dialog-actions"><button id="new-data-file">New data file</button><button id="open-data-file" class="primary">Open existing data file</button></div><div class="dialog-actions"><button id="disconnect-file" hidden>Use browser only</button><button id="close-file-dialog">Close</button></div></dialog>
+<dialog id="help-dialog"><h2>Using LAS Turnover</h2><p>Double-click a cell, press Enter, or choose <b>Edit cell</b>. Dropdowns and dates use the workbook’s formats. Calculated cells update automatically and cannot be overwritten. Arrow keys and Tab move between cells.</p><p><b>Open → Automated:</b> use the copy button to take a snapshot of Open Turnover. Edit Automated independently to arrange the display. Workload reads from Automated. Later Open edits reach Automated only when you copy again.</p><p><b>Saving:</b> enter your editor name, then choose Connect data file → Connect folder (data + log) to select your synced OneDrive folder. The app writes the data JSON and CSV change log after each applied edit. Reconnect the folder each time you open the app. Without a connected folder, changes save automatically in this browser on this device, like AeroLog. They do not update the Excel file or the HTML file. Save a backup JSON into your folder at the end of a shift. Restore it to move between browsers or computers. A shared folder does not synchronize browser data.</p><p><b>Before moving the app:</b> save a backup first. Keep the HTML file in a consistent location and use the same browser profile. Clearing browser data or using private browsing can remove local records.</p><p><b>Workbook behavior:</b> the original calculation meanings and conditional styles are retained. Aircraft and deferral totals now cover all active sections and added rows, correcting the template’s incomplete total ranges. Division by zero displays #DIV/0! as in Excel. The Workload TECHS count follows the template’s text-count formula; its original “d” entries are retained. The Summary tab is manual, as in the source.</p><p><b>Display:</b> Fit width shows the full sheet; increase zoom for editing. Print / PDF prints the active sheet. Testing tabs are hidden reference copies by default. Use the + / − controls on workload and deferral headings to add or remove rows; Aircraft controls add or remove the last section. Removal requires empty entries in both Open and Automated. Structure changes apply to both sheets and the Workload board. The Summary remains the original manual report. Structure changes clear the session’s cell undo history, and are recorded in the change log. Patterned fills are recreated with CSS; browser fonts and printing may differ slightly from Excel.</p><div class="dialog-actions"><button id="close-help" class="primary">Close</button></div></dialog>
+<dialog id="log-dialog"><h2>Change log</h2><p id="log-count"></p><div class="log-scroll"><table><thead><tr><th>Time</th><th>Editor</th><th>Action</th><th>Cell</th><th>Old value</th><th>New value</th></tr></thead><tbody id="log-rows"></tbody></table></div><div class="dialog-actions"><button id="export-log">Export full log CSV</button><button id="close-log">Close</button></div></dialog>
+<div id="toast" role="status" hidden></div>
+<script>const TEMPLATE={"id":"source-only-template-required","sheets":[]};
+/* Formula and formatting engine for the functions in the supplied workbook. */
+class ExcelError extends Error {constructor(code){super(code);this.code=code;}}
+const colNum=s=>[...s.replace(/\$/g,'')].reduce((n,c)=>n*26+c.charCodeAt(0)-64,0);
+const colName=n=>{let s='';for(;n;n=Math.floor((n-1)/26))s=String.fromCharCode(65+(n-1)%26)+s;return s;};
+const address=(c,r)=>colName(c)+r;
+const coord=a=>{const m=a.match(/\$?([A-Z]+)\$?(\d+)/);return [colNum(m[1]),+m[2]];};
+const inRange=(c,r,a)=>c>=a[0]&&c<=a[2]&&r>=a[1]&&r<=a[3];
+const serialDate=d=>Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000)+25569;
+const fromSerial=n=>new Date(Math.round((n-25569)*86400000));
+const flat=x=>Array.isArray(x)?x.flat(Infinity):[x];
+function parseFormula(source){
+ const tokens=[];let s=source.replace(/^=/,'');
+ const re=/\s+|"(?:[^"]|"")*"|'(?:[^']|'')*'!\$?[A-Z]+\$?\d+(?::\$?[A-Z]+\$?\d+)?|(?:[A-Za-z_][A-Za-z0-9_.]*!)?\$?[A-Z]+\$?\d+(?::\$?[A-Z]+\$?\d+)?|\d+(?:\.\d+)?|[A-Za-z_][A-Za-z0-9_.]*|<=|>=|<>|[()+\-*/&,=<>%]/gy;
+ let pos=0,m;
+ while(pos<s.length){re.lastIndex=pos;m=re.exec(s);if(!m)throw new Error('Unsupported formula near '+s.slice(pos));pos=re.lastIndex;if(!/^\s+$/.test(m[0]))tokens.push(m[0]);}
+ let i=0;
+ function primary(){let t=tokens[i++];if(!t)throw new Error('Incomplete formula');
+  if(t==='-'||t==='+')return {op:'unary'+t,a:primary()};
+  if(t==='('){let a=expr(0);if(tokens[i++]!==')')throw new Error('Missing )');return a;}
+  if(t[0]==='"')return {v:t.slice(1,-1).replace(/""/g,'"')};
+  if(/^\d/.test(t))return {v:+t};
+  if(tokens[i]==='('){i++;let args=[];if(tokens[i]!==')'){do{args.push(expr(0));if(tokens[i]!==',')break;i++;}while(true);}if(tokens[i++]!==')')throw new Error('Missing function )');return {fn:t.toUpperCase(),args};}
+  if(t==='TRUE'||t==='FALSE')return {v:t==='TRUE'};
+  return {ref:t};
+ }
+ const prec={'=':1,'<>':1,'<':1,'>':1,'<=':1,'>=':1,'&':2,'+':3,'-':3,'*':4,'/':4};
+ function expr(min){let a=primary();while(i<tokens.length){let op=tokens[i];if(op==='%'){i++;a={op:'/',a,b:{v:100}};continue;}if(!(op in prec)||prec[op]<min)break;i++;a={op,a,b:expr(prec[op]+1)};}return a;}
+ const ast=expr(0);if(i!==tokens.length)throw new Error('Unparsed formula '+tokens.slice(i).join(' '));return ast;
+}
+function compare(a,b,op){
+ if(a instanceof ExcelError)throw a;if(b instanceof ExcelError)throw b;
+ if(a==null)a=typeof b==='string'?'':0;if(b==null)b=typeof a==='string'?'':0;
+ if(typeof a==='string'&&typeof b==='string'){a=a.toUpperCase();b=b.toUpperCase();}
+ switch(op){case '=':return a===b;case '<>':return a!==b;case '<':return a<b;case '>':return a>b;case '<=':return a<=b;case '>=':return a>=b;}
+}
+function criterion(v,c){
+ if(typeof c==='number')return v===c;
+ const m=String(c).match(/^(<=|>=|<>|=|<|>)(.*)$/);let op=m?m[1]:'=',rhs=m?m[2]:String(c);
+ if(rhs!==''&&Number.isFinite(Number(rhs))){if(typeof v!=='number')return false;return compare(v,+rhs,op);}
+ if(/[*?~]/.test(rhs)){
+  let pat='';for(let i=0;i<rhs.length;i++){let ch=rhs[i];if(ch==='~'&&i+1<rhs.length)ch=rhs[++i];else if(ch==='*'){pat+='.*';continue;}else if(ch==='?'){pat+='.';continue;}pat+=ch.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+  const ok=typeof v==='string'&&new RegExp('^'+pat+'$','i').test(v);return op==='<>'?!ok:ok;
+ }
+ return compare(v,rhs,op);
+}
+class TurnoverEngine {
+ constructor(template,values={}){this.template=template;this.values=values;this.ast=new Map();this.cache=new Map();this.busy=new Set();this.today=serialDate(new Date());this.sheets=new Map(template.sheets.map(s=>[s.name,s]));}
+ clear(){this.cache.clear();this.today=serialDate(new Date());}
+ raw(sheet,a){const edits=this.values[sheet],cell=this.sheets.get(sheet)?.cells[a],key=cell?.key||a;return edits&&Object.hasOwn(edits,key)?edits[key]:cell?.v??null;}
+ get(sheet,a){a=a.replace(/\$/g,'');const key=sheet+'!'+a;if(this.cache.has(key))return this.cache.get(key);const cell=this.sheets.get(sheet)?.cells[a];if(!cell?.f)return this.raw(sheet,a);if(this.busy.has(key))return new ExcelError('#REF!');this.busy.add(key);let v;try{v=this.evaluate(cell.f,sheet);if(v==null)v=0;}catch(e){v=e instanceof ExcelError?e:new ExcelError('#VALUE!');}this.busy.delete(key);this.cache.set(key,v);return v;}
+ reference(ref,sheet,dx=0,dy=0){let a=ref;if(ref.includes('!')){const at=ref.lastIndexOf('!');sheet=ref.slice(0,at).replace(/^'|'$/g,'').replace(/''/g,"'");a=ref.slice(at+1);}if(!this.sheets.has(sheet))throw new ExcelError('#REF!');
+  const point=x=>{const m=x.match(/^(\$?)([A-Z]+)(\$?)(\d+)$/);if(!m)throw new ExcelError('#NAME?');return [colNum(m[2])+(m[1]?0:dx),+m[4]+(m[3]?0:dy)];};
+  const p=a.split(':');const [c,r]=point(p[0]);if(p.length===1)return this.get(sheet,address(c,r));let [c2,r2]=point(p[1]),v=[];for(let y=r;y<=r2;y++)for(let x=c;x<=c2;x++)v.push(this.get(sheet,address(x,y)));return v;
+ }
+ evaluate(f,sheet,dx=0,dy=0){if(!this.ast.has(f))this.ast.set(f,parseFormula(f));return this.run(this.ast.get(f),sheet,dx,dy);}
+ run(n,s,dx,dy){
+  const go=a=>this.run(a,s,dx,dy),num=v=>{if(v instanceof ExcelError)throw v;if(v==null||v==='')return 0;let n=Number(v);if(!Number.isFinite(n))throw new ExcelError('#VALUE!');return n;};
+  if(Object.hasOwn(n,'v'))return n.v;if(n.ref)return this.reference(n.ref,s,dx,dy);
+  if(n.op){const a=go(n.a);if(n.op==='unary-')return -num(a);if(n.op==='unary+')return num(a);const b=go(n.b);if(['=','<>','<','>','<=','>='].includes(n.op))return compare(a,b,n.op);if(n.op==='&')return String(a??'')+String(b??'');if(n.op==='+')return num(a)+num(b);if(n.op==='-')return num(a)-num(b);if(n.op==='*')return num(a)*num(b);if(num(b)===0)throw new ExcelError('#DIV/0!');return num(a)/num(b);}
+  if(n.fn==='IF')return go(n.args[0])?go(n.args[1]):n.args[2]?go(n.args[2]):false;
+  if(n.fn==='ISERROR'){try{return go(n.args[0]) instanceof ExcelError;}catch{return true;}}
+  let a=n.args.map(go);
+  switch(n.fn){
+   case 'TODAY':return this.today;
+   case 'SUM':return a.flat(Infinity).reduce((z,v)=>{if(v instanceof ExcelError)throw v;return z+(typeof v==='number'?v:0);},0);
+   case 'COUNT':return a.flat(Infinity).filter(v=>typeof v==='number').length;
+   case 'COUNTA':return a.flat(Infinity).filter(v=>v!==null&&v!==undefined).length;
+   case 'COUNTIF':return flat(a[0]).filter(v=>criterion(v,a[1])).length;
+   case 'COUNTIFS':return flat(a[0]).filter((v,i)=>{for(let j=0;j<a.length;j+=2)if(!criterion(flat(a[j])[i],a[j+1]))return false;return true;}).length;
+   case 'AND':return a.flat(Infinity).every(Boolean);
+   case 'NOT':return !a[0];
+   case 'ISNUMBER':return typeof a[0]==='number';
+   case 'SEARCH':{let i=String(a[1]??'').toUpperCase().indexOf(String(a[0]).toUpperCase());if(i<0)throw new ExcelError('#VALUE!');return i+1;}
+   case 'LEN':return String(a[0]??'').length;
+   case 'TRIM':return String(a[0]??'').trim().replace(/ +/g,' ');
+   case 'INDIRECT':return this.reference(String(a[0]),s);
+   default:throw new ExcelError('#NAME?');
+  }
+ }
+ conditional(sheet,addr){const s=this.sheets.get(sheet),[c,r]=coord(addr),css={};for(const rule of s.rules){if(!rule.ranges.some(a=>inRange(c,r,a)))continue;const origin=rule.ranges[0];let ok=false;try{ok=!!this.evaluate(rule.formula,sheet,c-origin[0],r-origin[1]);}catch{}if(ok){for(const [k,v] of Object.entries(rule.css))if(!(k in css))css[k]=v;if(rule.stop)break;}}return css;}
+}
+function formatValue(v,fmt){
+ if(v instanceof ExcelError)return v.code;if(v==null)return '';if(typeof v!=='number')return String(v);
+ if(fmt==='d-mmm'){let d=fromSerial(v);return d.getUTCDate()+'-'+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()];}
+ if(fmt==='mm-dd-yy'){let d=fromSerial(v);return String(d.getUTCMonth()+1).padStart(2,'0')+'-'+String(d.getUTCDate()).padStart(2,'0')+'-'+String(d.getUTCFullYear()).slice(-2);}
+ if(fmt==='0%')return Math.round(v*100)+'%';if(fmt.startsWith('0;'))return v===0?'':String(Math.round(v));return Number.isInteger(v)?String(v):String(Number(v.toPrecision(10)));
+}
+if(typeof module!=='undefined')module.exports={TurnoverEngine,parseFormula,ExcelError,serialDate,fromSerial,formatValue,criterion,coord,address};
+
+const ORIGINAL_FILES={};
+/* Preserve the original XLSX package; change only editable cell values. */
+const utf8=new TextEncoder();
+function bytes64(s){const b=atob(s);return Uint8Array.from(b,c=>c.charCodeAt(0));}
+function crc32(b){let crc=0xffffffff;for(const n of b){crc^=n;for(let i=0;i<8;i++)crc=(crc>>>1)^((crc&1)?0xedb88320:0);}return(crc^0xffffffff)>>>0;}
+function zipStored(files){let pos=0,locals=[],central=[];for(const [name,data] of Object.entries(files)){const n=utf8.encode(name),crc=crc32(data),h=new Uint8Array(30+n.length),d=new DataView(h.buffer);d.setUint32(0,0x04034b50,true);d.setUint16(4,20,true);d.setUint16(6,0x800,true);d.setUint32(14,crc,true);d.setUint32(18,data.length,true);d.setUint32(22,data.length,true);d.setUint16(26,n.length,true);h.set(n,30);locals.push(h,data);const ch=new Uint8Array(46+n.length),cd=new DataView(ch.buffer);cd.setUint32(0,0x02014b50,true);cd.setUint16(4,20,true);cd.setUint16(6,20,true);cd.setUint16(8,0x800,true);cd.setUint32(16,crc,true);cd.setUint32(20,data.length,true);cd.setUint32(24,data.length,true);cd.setUint16(28,n.length,true);cd.setUint32(42,pos,true);ch.set(n,46);central.push(ch);pos+=h.length+data.length;}const size=central.reduce((a,b)=>a+b.length,0),end=new Uint8Array(22),v=new DataView(end.buffer);v.setUint32(0,0x06054b50,true);v.setUint16(8,central.length,true);v.setUint16(10,central.length,true);v.setUint32(12,size,true);v.setUint32(16,pos,true);return new Blob([...locals,...central,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});}
+function workbookBlob(){
+ const files=Object.fromEntries(Object.entries(ORIGINAL_FILES).map(([n,b])=>[n,bytes64(b)])),parser=new DOMParser(),serializer=new XMLSerializer(),ns='http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+ TEMPLATE.sheets.forEach((s,i)=>{
+  const path='xl/worksheets/sheet'+(i+1)+'.xml',doc=parser.parseFromString(new TextDecoder().decode(files[path]),'application/xml');
+  let data=doc.getElementsByTagNameNS(ns,'sheetData')[0];
+  if(i<3){
+   const newData=doc.createElementNS(ns,'sheetData');
+   for(let r=1;r<=s.rows;r++){const row=doc.createElementNS(ns,'row');row.setAttribute('r',r);row.setAttribute('ht',s.heights[r-1]*.75);row.setAttribute('customHeight','1');for(let col=1;col<=s.cols;col++){const a=address(col,r),cell=s.cells[a];if(!cell)continue;const c=doc.createElementNS(ns,'c');c.setAttribute('r',a);if(cell.xlsxStyle)c.setAttribute('s',cell.xlsxStyle);if(cell.f){const f=doc.createElementNS(ns,'f');f.textContent=cell.f.replace(/^=/,'');c.append(f);}row.append(c);}newData.append(row);}data.replaceWith(newData);data=newData;
+   const dimension=doc.getElementsByTagNameNS(ns,'dimension')[0];if(dimension)dimension.setAttribute('ref','A1:'+address(s.cols,s.rows));
+   const oldM=doc.getElementsByTagNameNS(ns,'mergeCells')[0],merges=doc.createElementNS(ns,'mergeCells');merges.setAttribute('count',s.merges.length);for(const m of s.merges){const e=doc.createElementNS(ns,'mergeCell');e.setAttribute('ref',address(m[0],m[1])+':'+address(m[2],m[3]));merges.append(e);}if(oldM)oldM.replaceWith(merges);else data.after(merges);
+   for(const old of [...doc.getElementsByTagNameNS(ns,'conditionalFormatting')])old.remove();
+   let after=merges,priority=1;for(const rule of s.rules){const cf=doc.createElementNS(ns,'conditionalFormatting');cf.setAttribute('sqref',rule.ranges.map(a=>address(a[0],a[1])+':'+address(a[2],a[3])).join(' '));const cr=doc.createElementNS(ns,'cfRule');cr.setAttribute('type','expression');cr.setAttribute('priority',priority++);if(rule.dxfId!=null)cr.setAttribute('dxfId',rule.dxfId);if(rule.stop)cr.setAttribute('stopIfTrue','1');const f=doc.createElementNS(ns,'formula');f.textContent=rule.formula.replace(/^=/,'');cr.append(f);cf.append(cr);after.after(cf);after=cf;}
+   const oldV=doc.getElementsByTagNameNS(ns,'dataValidations')[0];if(oldV)oldV.remove();if(s.validations.length){const dvs=doc.createElementNS(ns,'dataValidations');dvs.setAttribute('count',s.validations.length);for(const rule of s.validations){const d=doc.createElementNS(ns,'dataValidation');d.setAttribute('type',rule.type);d.setAttribute('sqref',rule.ranges.map(a=>address(a[0],a[1])+':'+address(a[2],a[3])).join(' '));d.setAttribute('allowBlank',rule.allowBlank?'1':'0');d.setAttribute('showErrorMessage',rule.error?'1':'0');if(rule.operator)d.setAttribute('operator',rule.operator);for(const [tag,value] of [['formula1',rule.formula],['formula2',rule.formula2]])if(value!=null){const f=doc.createElementNS(ns,tag);f.textContent=value;d.append(f);}dvs.append(d);}after.after(dvs);}
+  }
+  const cells=new Map([...doc.getElementsByTagNameNS(ns,'c')].map(c=>[c.getAttribute('r'),c])),rows=new Map([...data.children].map(r=>[+r.getAttribute('r'),r]));
+  for(const [a,cell] of Object.entries(s.cells)){
+   if(cell.f)continue;const value=engine.raw(s.name,a);
+   if(!s.cells[a]||s.cells[a].f)continue;let c=cells.get(a);
+   if(!c){const [col,row]=coord(a);let r=rows.get(row);if(!r){r=doc.createElementNS(ns,'row');r.setAttribute('r',row);data.insertBefore(r,[...data.children].find(x=>+x.getAttribute('r')>row)||null);rows.set(row,r);}c=doc.createElementNS(ns,'c');c.setAttribute('r',a);r.insertBefore(c,[...r.children].find(x=>coord(x.getAttribute('r'))[0]>col)||null);}
+   for(const child of [...c.children])if(['v','f','is'].includes(child.localName))c.removeChild(child);c.removeAttribute('t');
+   if(value==null)continue;
+   if(typeof value==='string'){c.setAttribute('t','inlineStr');const is=doc.createElementNS(ns,'is'),t=doc.createElementNS(ns,'t');t.setAttributeNS('http://www.w3.org/XML/1998/namespace','xml:space','preserve');t.textContent=value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');is.append(t);c.append(is);}
+   else{if(typeof value==='boolean')c.setAttribute('t','b');const v=doc.createElementNS(ns,'v');v.textContent=typeof value==='boolean'?(value?'1':'0'):String(value);c.append(v);}
+  }
+  for(const f of doc.getElementsByTagNameNS(ns,'f')){const c=f.parentElement,a=c.getAttribute('r'),value=engine.get(s.name,a);for(const old of [...c.children])if(old.localName==='v')c.removeChild(old);c.removeAttribute('t');const v=doc.createElementNS(ns,'v');if(value instanceof ExcelError){c.setAttribute('t','e');v.textContent=value.code;}else if(typeof value==='string'){c.setAttribute('t','str');v.textContent=value;}else if(typeof value==='boolean'){c.setAttribute('t','b');v.textContent=value?'1':'0';}else v.textContent=String(value??0);c.append(v);}
+  files[path]=utf8.encode(serializer.serializeToString(doc));
+ });
+ const wb=parser.parseFromString(new TextDecoder().decode(files['xl/workbook.xml']),'application/xml');let calc=wb.getElementsByTagNameNS(ns,'calcPr')[0];if(!calc){calc=wb.createElementNS(ns,'calcPr');wb.documentElement.append(calc);}calc.setAttribute('calcMode','auto');calc.setAttribute('fullCalcOnLoad','1');calc.setAttribute('forceFullCalc','1');for(const n of wb.getElementsByTagNameNS(ns,'definedName'))if(n.getAttribute('name')==='_xlnm.Print_Area'&&n.getAttribute('localSheetId')==='2')n.textContent="'WORKLOAD'!$A$1:$O$"+TEMPLATE.sheets[2].rows;files['xl/workbook.xml']=utf8.encode(serializer.serializeToString(wb));
+ return zipStored(files);
+}
+function exportExcel(){try{download(workbookBlob(),'LAS-TURNOVER-'+localStamp()+'.xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');toast('Excel export requested. Save the downloaded workbook to the M: drive.');}catch(e){toast('Excel export failed: '+e.message);}}
+
+'use strict';
+const $=id=>document.getElementById(id);
+let values={},audit=[],active=0,selected=null,db=null,revision=0,saveChain=Promise.resolve(),failed=false,pending=0,undo=[],redo=[],editorCell=null;
+const engine=new TurnoverEngine(TEMPLATE,values),rendered=new Map(),sheetModels=TEMPLATE.sheets;
+const styleText=o=>Object.entries(o).map(([k,v])=>k+':'+v).join(';');
+const sheet=()=>sheetModels[active];
+const storageName='las-turnover-offline-v1';
+function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,4500);}
+function showSave(text,error=false){$('save-state').textContent=text;$('save-state').classList.toggle('error',error);}
+function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(storageName,1);r.onupgradeneeded=()=>r.result.createObjectStore('workbooks');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.onblocked=()=>reject(new Error('Close other LAS Turnover windows and reopen.'));});}
+function loadRecord(){return new Promise((resolve,reject)=>{const t=db.transaction('workbooks','readonly'),r=t.objectStore('workbooks').get(TEMPLATE.id);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+function save(writeFile=true){
+ const snapshot=JSON.parse(JSON.stringify(values)),logSnapshot=JSON.parse(JSON.stringify(audit)),layoutSnapshot=copyObj(layout);pending++;showSave('Saving on this device…');
+ saveChain=saveChain.then(()=>new Promise((resolve,reject)=>{
+  if(!db||failed){reject(new Error('Local saving is unavailable. Save a backup to keep your edits.'));return;}
+  const t=db.transaction('workbooks','readwrite'),store=t.objectStore('workbooks');let conflict=false;
+  store.get(TEMPLATE.id).onsuccess=e=>{const old=e.target.result;if((old?.revision||0)!==revision){conflict=true;t.abort();return;}store.put({version:1,values:snapshot,audit:logSnapshot,layout:layoutSnapshot,editor:$('editor-name').value,revision:revision+1,savedAt:new Date().toISOString()},TEMPLATE.id);};
+  t.oncomplete=()=>{revision++;resolve();};t.onabort=t.onerror=()=>reject(new Error(conflict?'Another window saved newer changes. Save a backup of this window, then reload.':'Could not save on this device. Save a backup now.'));
+ })).then(async()=>{if(writeFile&&dataHandle)await writeDataFile(snapshot,logSnapshot,layoutSnapshot);pending--;if(!pending)showSave((dataHandle?'Saved data'+(logHandle?' + change log':''):'Saved on this device')+' · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));}).catch(e=>{pending--;if(dataHandle)fileBlocked=true;else failed=true;showSave(e.message,true);});
+ return saveChain;
+}
+function refreshHistory(){$('undo').disabled=!undo.length;$('redo').disabled=!redo.length;}
+function change(changes,label){
+ if(fileBlocked){toast('File saving is paused. Save a backup, then reconnect your data file before editing.');return;}
+ if(!$('editor-name').value.trim()){toast('Enter your name above so changes can be recorded in the log.');$('editor-name').focus();return;}
+ const actual=changes.filter(x=>!Object.is(engine.raw(x.sheet,x.addr),x.value));if(!actual.length)return;
+ const batch=actual.map(x=>({...x,key:engine.sheets.get(x.sheet).cells[x.addr].key||x.addr,before:engine.raw(x.sheet,x.addr)}));
+ for(const x of batch){values[x.sheet]??={};values[x.sheet][x.key||x.addr]=x.value;}
+ appendAudit(batch,label);
+ undo.push({batch,label});if(undo.length>100)undo.shift();redo=[];engine.clear();renderValues();refreshHistory();save();
+}
+function undoRedo(isRedo){if(fileBlocked){toast('Reconnect your data file before editing.');return;}if(!$('editor-name').value.trim()){toast('Enter your name for the change log.');$('editor-name').focus();return;}const from=isRedo?redo:undo,to=isRedo?undo:redo,item=from.pop();if(!item)return;const changes=item.batch.map(x=>({sheet:x.sheet,addr:x.addr,key:x.key,before:engine.raw(x.sheet,x.addr),value:isRedo?x.value:x.before}));for(const x of changes){values[x.sheet]??={};values[x.sheet][x.key||x.addr]=x.value;}appendAudit(changes,(isRedo?'Redo: ':'Undo: ')+item.label);to.push(item);engine.clear();renderValues();refreshHistory();save();toast((isRedo?'Redid ':'Undid ')+item.label);}
+function renderTabs(){
+ $('tabs').replaceChildren();sheetModels.forEach((s,i)=>{if(s.hidden&&!$('hidden-sheets').checked)return;const b=document.createElement('button');b.textContent=s.name;b.setAttribute('role','tab');b.setAttribute('aria-selected',String(active===i));b.onclick=()=>{active=i;selected=null;renderTabs();renderSheet();$('viewport').scrollTo(0,0);};$('tabs').append(b);});
+}
+function renderSheet(){
+ const s=sheet(),table=$('sheet');table.replaceChildren();table.setAttribute('aria-label',s.name);table.style.width=s.widths.reduce((a,b)=>a+b,0)+'px';rendered.clear();
+ const cg=document.createElement('colgroup');s.widths.forEach(w=>{const c=document.createElement('col');c.style.width=w+'px';cg.append(c);});table.append(cg);
+ const skip=new Set(),merges=new Map();for(const [c,r,c2,r2] of s.merges){merges.set(address(c,r),[c2-c+1,r2-r+1]);for(let y=r;y<=r2;y++)for(let x=c;x<=c2;x++)if(y!==r||x!==c)skip.add(address(x,y));}
+ const body=document.createElement('tbody');
+ for(let r=1;r<=s.rows;r++){
+  const tr=document.createElement('tr');tr.style.height=s.heights[r-1]+'px';if(!s.heights[r-1])tr.hidden=true;
+  for(let c=1;c<=s.cols;c++){const a=address(c,r);if(skip.has(a))continue;const cell=s.cells[a];if(!cell)continue;const td=document.createElement('td');td.dataset.addr=a;td.tabIndex=-1;if(cell.f)td.dataset.formula=cell.f;const m=merges.get(a);if(m){td.colSpan=m[0];td.rowSpan=m[1];}td.style.cssText=styleText(TEMPLATE.styles[cell.s]);td.setAttribute('aria-label',s.name+' '+a);if(!s.widths[c-1])td.hidden=true;
+   const div=document.createElement('div');div.className='cell-content';const h=s.heights.slice(r-1,r-1+(m?.[1]||1)).reduce((a,b)=>a+b,0);div.style.maxHeight=Math.max(h-1,1)+'px';td.append(div);td.onclick=()=>selectCell(a);td.ondblclick=()=>editCell(a);tr.append(td);rendered.set(a,{td,div,cell,c,r});
+  }body.append(tr);
+ }table.append(body);renderValues();applyZoom();updateSelection();
+ $('sheet-note').textContent=s.name==='WORKLOAD'?'Workload reads from Automated Turnover.':s.name==='AUTOMATED TURNOVER'?'Edits here do not change Open Turnover.':'Open and Automated are separate copies.';
+}
+function renderValues(){
+ const s=sheet();for(const [a,{td,div,cell,c,r}] of rendered){
+  const v=engine.get(s.name,a),css={...TEMPLATE.styles[cell.s],...engine.conditional(s.name,a)};td.style.cssText=styleText(css);td.querySelector('.row-controls')?.remove();div.replaceChildren();
+  if(cell.runs&&!Object.hasOwn(values[s.name]||{},cell.key||a)){for(const run of cell.runs){const sp=document.createElement('span');sp.textContent=run.text;sp.style.cssText=styleText(run.css);div.append(sp);}}else div.textContent=formatValue(v,cell.fmt);
+  td.title=(cell.f?'Calculated: '+cell.f:'Cell '+a)+(cell.comment?'\n'+cell.comment:'');
+  if(cell.shrink){div.style.fontSize='';const width=s.widths.slice(c-1,c-1+td.colSpan).reduce((a,b)=>a+b,0)-4;const estimated=String(div.textContent).length*parseFloat(css['font-size']||'11')*.67;if(estimated>width)div.style.fontSize=Math.max(5,parseFloat(css['font-size']||'11')*width/estimated)+'pt';}
+  if(cell.rotation){div.style.writingMode=cell.rotation===255?'vertical-rl':'';if(cell.rotation!==255)div.style.transform='rotate('+(cell.rotation<=90?-cell.rotation:cell.rotation-90)+'deg)';}
+  if(s.name==='OPEN TURNOVER'&&a==='C4'){const b=document.createElement('button');b.textContent='COPY OPEN TO AUTOMATED';b.className='sheet-copy';b.style.cssText='background:#982e98;color:white;border:2px solid black;font:10px Arial;width:100%;height:100%;padding:3px;border-radius:6px';b.onclick=e=>{e.stopPropagation();copyOpen();};div.replaceChildren(b);}
+ }
+ installRowButtons();updateSelection();
+}
+function selectCell(a,focus=true){selected=a;updateSelection();if(focus)rendered.get(a)?.td.focus({preventScroll:true});}
+function updateSelection(){for(const [a,{td}] of rendered)td.classList.toggle('selected',a===selected);const cell=sheet().cells[selected];$('cell-address').textContent=selected||'Select a cell';$('formula-text').textContent=cell?(cell.f||String(engine.raw(sheet().name,selected)??'')||'Empty cell. Press Enter to edit.'):'Click a cell to edit. Changes save on this browser and device.';$('edit-selected').disabled=!cell||!!cell.f;}
+function applyZoom(){let v=$('zoom').value,s=sheet(),width=s.widths.reduce((a,b)=>a+b,0);let z=v==='fit'?Math.min(1,Math.max(.2,($('viewport').clientWidth-34)/width)):+v;$('sheet-wrap').style.zoom=z;document.documentElement.style.setProperty('--print-zoom',Math.min(1,1000/width));}
+function validationFor(a){const [c,r]=coord(a);return sheet().validations.find(v=>v.ranges.some(x=>inRange(c,r,x)));}
+function editCell(a,initial){if(!$('editor-name').value.trim()){toast('Enter your name above before editing.');$('editor-name').focus();return;}const cell=sheet().cells[a];if(!cell||cell.f){if(cell?.f)toast('This cell is calculated automatically. Edit its source cells.');return;}editorCell=a;selectCell(a,false);const v=engine.raw(sheet().name,a),rule=validationFor(a);
+ $('edit-title').textContent=sheet().name+' · '+a;$('edit-error').textContent='';$('edit-note').textContent=cell.comment||'Changes keep this cell’s original formatting.';
+ for(const id of ['edit-text','edit-select','edit-date'])$(id).hidden=true;
+ if(rule?.type==='list'){
+  const sel=$('edit-select');sel.replaceChildren();const options=rule.formula.replace(/^"|"$/g,'').split(',').map(x=>x.trim());if(!options.includes(''))options.unshift('');if(v!=null&&!options.includes(String(v)))options.push(String(v));for(const value of options){const op=document.createElement('option');op.value=value;op.textContent=value||'— Blank —';sel.append(op);}sel.value=String(v??'');sel.hidden=false;
+ }else if(['d-mmm','mm-dd-yy'].includes(cell.fmt)){
+  $('edit-date').hidden=false;$('edit-date').value=typeof v==='number'?fromSerial(v).toISOString().slice(0,10):'';
+  if(rule?.type==='date'&&rule.error)$('edit-note').textContent+=' The original workbook restricts this date to '+formatValue(+rule.formula,'mm-dd-yy')+'.';
+ }else{$('edit-text').hidden=false;$('edit-text').value=initial??String(v??'');}
+ $('editor').showModal();const control=['edit-text','edit-select','edit-date'].map($).find(x=>!x.hidden);control.focus();if(control===$('edit-text')&&initial===undefined)control.select();
+}
+function closeEditor(){$('editor').close();rendered.get(selected)?.td.focus({preventScroll:true});}
+function parseInput(text,cell){if(text==='')return null;if(cell.fmt==='@')return text;if(/^-?(?:0|[1-9]\d*)(?:\.\d+)?$/.test(text)&&text.length<16)return Number(text);return text;}
+function applyEdit(){const cell=sheet().cells[editorCell],rule=validationFor(editorCell);let v;
+ if(!$('edit-select').hidden)v=$('edit-select').value||null;
+ else if(!$('edit-date').hidden){const t=$('edit-date').value;v=t?Math.round(Date.parse(t+'T00:00:00Z')/86400000)+25569:null;if(v!==null&&rule?.type==='date'&&rule.error&&v!==+rule.formula){$('edit-error').textContent='The workbook’s date validation allows only '+formatValue(+rule.formula,'mm-dd-yy')+' in this cell.';return;}}
+ else v=parseInput($('edit-text').value,cell);
+ if(typeof v==='string'&&v.length>20000){$('edit-error').textContent='Use no more than 20,000 characters.';return;}
+ change([{sheet:sheet().name,addr:editorCell,value:v}],'cell edit');closeEditor();
+}
+function ask(title,body,action,label='Continue'){$('confirm-title').textContent=title;$('confirm-body').textContent=body;$('confirm-go').textContent=label;$('confirm-go').onclick=()=>{$('confirm').close();action();};$('confirm').showModal();}
+function copyOpen(){ask('Copy Open to Automated?','Replace Automated Turnover entries with the current Open Turnover snapshot. Workload will update from Automated. Open Turnover stays independent. You can undo this copy.',()=>{
+ const src=sheetModels[0],dst=sheetModels[1],changes=[];for(const [addr,c] of Object.entries(dst.cells)){if(!c.f&&src.cells[addr]&&!src.cells[addr].f)changes.push({sheet:dst.name,addr,value:engine.raw(src.name,addr)});}change(changes,'Open → Automated copy');toast('Copied to Automated. Its edits remain separate from Open.');
+ },'Copy to Automated');}
+function download(data,name,type='application/json'){const url=URL.createObjectURL(new Blob([data],{type})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);}
+function backup(){download(JSON.stringify(packValues(values,audit),null,2),'LAS-Turnover-'+localStamp()+'.json');toast('Backup download requested. Keep it in your turnover folder.');}
+function validateBackup(input){if(!input||input.format!=='LASTurnoverOfflineBackup'||input.version!==1||input.template!==TEMPLATE.id||!input.values||typeof input.values!=='object'||Array.isArray(input.values))throw new Error('Choose a LAS Turnover backup made by this app.');const candidate=buildLayout(input.layout||defaultLayout()).sheets;const out={};let count=0;for(const [name,cells] of Object.entries(input.values)){const s=candidate.find(x=>x.name===name);if(!s||!cells||typeof cells!=='object'||Array.isArray(cells))throw new Error('Backup contains an unknown sheet.');out[name]={};for(const [a,v] of Object.entries(cells)){const cell=Object.values(s.cells).find(c=>c.key===a);if(!cell||cell.f)throw new Error('Backup contains an invalid or calculated cell.');if(v!==null&&typeof v!=='string'&&typeof v!=='number'&&typeof v!=='boolean')throw new Error('Invalid cell value.');if(typeof v==='number'&&!Number.isFinite(v)||typeof v==='string'&&v.length>20000||++count>40000)throw new Error('Backup values are too large.');out[name][a]=v;}}return out;}
+async function restoreFile(file){try{if(file.size>20*1024*1024)throw new Error('Backup must be smaller than 20 MB.');const payload=JSON.parse(await file.text()),incoming=validateBackup(payload),incomingAudit=validateAudit(payload.audit||[]);ask('Restore this turnover backup?','Replace the current entries in all tabs with this backup. Save a backup of your current work first if needed. Save a backup before restoring a different row layout.',()=>{if(fileBlocked){toast('Reconnect your folder before restoring.');return;}if(!$('editor-name').value.trim()){toast('Enter your name before restoring.');return;}useLayout(payload.layout||defaultLayout());renderSheet();updateLayoutUI();const ids=new Set(audit.map(x=>x.id));audit.push(...incomingAudit.filter(x=>!ids.has(x.id)));const changes=[];for(const s of sheetModels)for(const [a,c] of Object.entries(s.cells))if(!c.f)changes.push({sheet:s.name,addr:a,value:Object.hasOwn(incoming[s.name]||{},c.key||a)?incoming[s.name][c.key||a]:c.v});change(changes,'backup restore');save();toast('Backup restored.');},'Restore backup');}catch(e){toast(e.message);}}
+function moveSelection(dc,dr){if(!selected){selectCell(rendered.keys().next().value);return;}const [c,r]=coord(selected),entry=rendered.get(selected);let x=c+(dc>0?entry.td.colSpan:dc),y=r+(dr>0?entry.td.rowSpan:dr);if(dc===0)x=c;if(dr===0)y=r;
+ for(const [a,{td,c:cc,r:rr}] of rendered){if(x>=cc&&x<cc+td.colSpan&&y>=rr&&y<rr+td.rowSpan){selectCell(a);td.scrollIntoView({block:'nearest',inline:'nearest'});break;}}
+}
+$('edit-form').onsubmit=e=>{e.preventDefault();applyEdit();};$('cancel-edit').onclick=closeEditor;$('clear-cell').onclick=()=>{change([{sheet:sheet().name,addr:editorCell,value:null}],'clear cell');closeEditor();};$('edit-selected').onclick=()=>editCell(selected);
+$('confirm-cancel').onclick=()=>$('confirm').close();$('copy-open').onclick=copyOpen;$('backup').onclick=backup;$('restore').onclick=()=>$('restore-file').click();$('restore-file').onchange=e=>{if(e.target.files[0])restoreFile(e.target.files[0]);e.target.value='';};$('undo').onclick=()=>undoRedo(false);$('redo').onclick=()=>undoRedo(true);$('print').onclick=()=>window.print();$('help').onclick=()=>$('help-dialog').showModal();$('close-help').onclick=()=>$('help-dialog').close();$('zoom').onchange=applyZoom;$('hidden-sheets').onchange=()=>{if(sheet().hidden&&!$('hidden-sheets').checked){active=0;renderSheet();}renderTabs();};window.addEventListener('resize',applyZoom);
+$('sheet').addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey){if(e.key==='z'){e.preventDefault();undoRedo(e.shiftKey);}if(e.key==='y'){e.preventDefault();undoRedo(true);}return;}if(e.key==='Enter'||e.key==='F2'){e.preventDefault();editCell(selected);return;}const dirs={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1],Tab:[e.shiftKey?-1:1,0]};if(dirs[e.key]){e.preventDefault();moveSelection(...dirs[e.key]);return;}if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault();if(!sheet().cells[selected]?.f)change([{sheet:sheet().name,addr:selected,value:null}],'clear cell');return;}if(e.key.length===1&&!e.altKey){e.preventDefault();editCell(selected,e.key);}});
+$('sheet').addEventListener('paste',e=>{if(!selected)return;const text=e.clipboardData.getData('text/plain');if(!text)return;e.preventDefault();try{const start=coord(selected),changes=[];text.replace(/\r/g,'').replace(/\n$/,'').split('\n').forEach((line,dy)=>line.split('\t').forEach((v,dx)=>{const a=address(start[0]+dx,start[1]+dy),c=sheet().cells[a];if(c&&!c.f){const dv=validationFor(a);if(dv?.type==='list'&&v&&!dv.formula.replace(/^"|"$/g,'').split(',').map(x=>x.trim()).includes(v.trim()))throw new Error('Paste includes a value outside the cell dropdown.');changes.push({sheet:sheet().name,addr:a,value:parseInput(v,c)});}}));change(changes,'paste');}catch(err){toast(err.message);}});
+window.addEventListener('beforeunload',e=>{if(pending||failed||fileBlocked){e.preventDefault();e.returnValue='';}});
+setInterval(()=>{if(serialDate(new Date())!==engine.today){engine.clear();renderValues();}},60000);
+async function start(){try{db=await openDB();const stored=await loadRecord();if(stored){useLayout(stored.layout||defaultLayout());values=validateBackup({format:'LASTurnoverOfflineBackup',version:1,template:TEMPLATE.id,values:stored.values,layout:stored.layout});audit=validateAudit(stored.audit||[]);$('editor-name').value=stored.editor||'';engine.values=values;revision=stored.revision||0;}showSave('Saved on this device · Connect your folder for data + log files.');}catch(e){failed=true;showSave('Local storage unavailable. Use Save backup to keep your work.',true);}renderTabs();renderSheet();updateLayoutUI();}
+start();
+$('export-excel').onclick=exportExcel;
+
+function localStamp(){const d=new Date(),p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'_'+p(d.getHours())+'-'+p(d.getMinutes())+'-'+p(d.getSeconds());}
+function appendAudit(changes,action){const time=new Date().toISOString(),group=crypto.randomUUID(),editor=$('editor-name').value.trim();for(const x of changes)audit.push({id:crypto.randomUUID(),group,time,editor,action,sheet:x.sheet,cell:x.addr,before:x.before,after:x.value});}
+function validateAudit(rows){if(!Array.isArray(rows)||rows.length>200000)throw new Error('Invalid change history.');for(const x of rows){if(!x||typeof x!=='object'||!['id','time','editor','action','sheet','cell'].every(k=>typeof x[k]==='string'&&x[k].length<=500)||!['before','after'].every(k=>x[k]===null||['string','number','boolean'].includes(typeof x[k]))||!Number.isFinite(Date.parse(x.time)))throw new Error('Invalid change history entry.');}return rows;}
+function auditCSV(rows){const cell=v=>{let s=String(v??'');if(/^[\s]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};return '\ufeff'+[['Time (UTC)','Editor (self-entered)','Action','Sheet','Cell','Old value','New value','Change ID'],...rows.map(r=>[r.time,r.editor,r.action,r.sheet,r.cell,r.before,r.after,r.id])].map(r=>r.map(cell).join(',')).join('\r\n');}
+function showLog(){const tbody=$('log-rows');tbody.replaceChildren();for(const r of audit.slice(-200).reverse()){const tr=document.createElement('tr');for(const v of [new Date(r.time).toLocaleString(),r.editor,r.action,r.sheet+'!'+r.cell,r.before??'',r.after??'']){const td=document.createElement('td');td.textContent=String(v);tr.append(td);}tbody.append(tr);}$('log-count').textContent=audit.length+' logged changes. Showing the latest 200. Export includes the entire history. Editor names are self-entered, not verified sign-ins.';$('log-dialog').showModal();}
+$('change-log').onclick=showLog;$('close-log').onclick=()=>$('log-dialog').close();$('export-log').onclick=()=>download(auditCSV(audit),'LAS-Turnover-log-'+localStamp()+'.csv','text/csv;charset=utf-8');
+
+let dataHandle=null,logHandle=null,fileHash=null,fileBlocked=false;
+const fileOptions={types:[{description:'LAS Turnover data',accept:{'application/json':['.json']}}],excludeAcceptAllOption:true};
+const hashText=async t=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t))),x=>x.toString(16).padStart(2,'0')).join('');
+function packValues(v,history=audit,structure=layout){return {application:'LAS Turnover',format:'LASTurnoverOfflineBackup',version:1,template:TEMPLATE.id,exportedAt:new Date().toISOString(),values:v,audit:history,layout:structure};}
+async function fileRecord(handle){const file=await handle.getFile();if(file.size>20*1024*1024)throw new Error('Data file is larger than 20 MB.');const text=await file.text(),p=JSON.parse(text);return {values:validateBackup(p),audit:validateAudit(p.audit||[]),layout:checkedLayout(p.layout||defaultLayout()),hash:await hashText(text)};}
+function fileStatus(){$('file-status').textContent=dataHandle?'Data file: '+dataHandle.name+' · One editor at a time':'Browser-only saving · Connect your data file each time you open the app.';$('disconnect-file').hidden=!dataHandle;}
+async function writeDataFile(snapshot,history=audit,structure=layout){
+ if(!dataHandle)return;if(fileBlocked)throw new Error('File saving is paused. Save a backup, then reconnect the data file.');
+ const current=await fileRecord(dataHandle);if(current.hash!==fileHash){fileBlocked=true;throw new Error('The data file changed elsewhere. Your edits are kept in this browser. Save a backup, then reconnect.');}
+ const text=JSON.stringify(packValues(snapshot,history,structure),null,2),writer=await dataHandle.createWritable();try{await writer.write(text);await writer.close();}catch(e){try{await writer.abort();}catch{}throw e;}
+ fileHash=await hashText(text);
+ if(logHandle){try{const logWriter=await logHandle.createWritable();await logWriter.write(auditCSV(history));await logWriter.close();}catch(e){throw new Error('Turnover data saved, but the CSV log could not be updated. History is retained in the data file. Reconnect the folder.');}}
+}
+async function attachExisting(){
+ try{if(!window.showOpenFilePicker)throw new Error('Open this file in current Microsoft Edge or Chrome to connect a data file.');
+  const [handle]=await showOpenFilePicker({...fileOptions,multiple:false});if(await handle.requestPermission({mode:'readwrite'})!=='granted')throw new Error('Read/write access was not granted.');const incoming=await fileRecord(handle);
+  $('file-dialog').close();ask('Load this data file?','Load '+handle.name+' into all tabs. This replaces the current browser copy. Save a backup first if you need to keep it. Only one person should edit this data file at a time.',async()=>{try{await saveChain;dataHandle=handle;logHandle=null;fileHash=incoming.hash;fileBlocked=false;useLayout(incoming.layout);values=incoming.values;audit=incoming.audit;engine.values=values;engine.clear();undo=[];redo=[];renderSheet();updateLayoutUI();refreshHistory();fileStatus();await save(false);showSave('Connected to '+handle.name+' · One editor at a time.');}catch(e){toast(e.message);}},'Load data file');
+ }catch(e){if(e.name!=='AbortError')toast(e.message);}
+}
+async function createDataFile(){try{
+ if(!window.showSaveFilePicker)throw new Error('Open this file in current Microsoft Edge or Chrome to connect a data file.');
+ const handle=await showSaveFilePicker({...fileOptions,suggestedName:'LAS-Turnover-data.json'});await saveChain;const text=JSON.stringify(packValues(values),null,2),writer=await handle.createWritable();await writer.write(text);await writer.close();dataHandle=handle;logHandle=null;fileHash=await hashText(text);fileBlocked=false;fileStatus();$('file-dialog').close();showSave('Saved to '+handle.name+' · OneDrive sync is managed by OneDrive.');
+ }catch(e){if(e.name!=='AbortError')toast(e.message);}}
+async function disconnectFile(){await saveChain;dataHandle=null;logHandle=null;fileHash=null;fileBlocked=false;fileStatus();$('file-dialog').close();showSave('Browser-only saving. Use Save backup to keep a file copy.');}
+async function connectFolder(){try{
+ if(!window.showDirectoryPicker)throw new Error('Use current Edge or Chrome to connect a folder.');
+ const folder=await showDirectoryPicker({mode:'readwrite'});let handle=null,incoming=null;try{handle=await folder.getFileHandle('LAS-Turnover-data.json');incoming=await fileRecord(handle);}catch(e){if(e.name!=='NotFoundError')throw e;}
+ $('file-dialog').close();ask(incoming?'Load folder turnover?':'Create folder turnover?',incoming?'Load this folder’s saved turnover and history. This replaces the browser copy. The CSV log will be rebuilt from its saved history.':'Create LAS-Turnover-data.json and LAS-Turnover-log.csv in this folder using the current turnover. Use one editor at a time.',async()=>{try{
+  await saveChain;if(incoming){useLayout(incoming.layout);values=incoming.values;audit=incoming.audit;engine.values=values;engine.clear();undo=[];redo=[];}
+  dataHandle=handle||await folder.getFileHandle('LAS-Turnover-data.json',{create:true});logHandle=await folder.getFileHandle('LAS-Turnover-log.csv',{create:true});fileBlocked=false;
+  if(incoming)fileHash=incoming.hash;else{const text=JSON.stringify(packValues(values),null,2),wr=await dataHandle.createWritable();await wr.write(text);await wr.close();fileHash=await hashText(text);}
+  await writeDataFile(values,audit);await save(false);renderSheet();updateLayoutUI();refreshHistory();fileStatus();showSave('Connected folder · Data + change log autosave after each change.');
+ }catch(e){fileBlocked=true;showSave(e.message,true);}},incoming?'Load folder':'Create files');
+ }catch(e){if(e.name!=='AbortError')toast(e.message);}}
+$('connect-file').onclick=()=>{$('file-dialog').showModal();};$('open-data-file').onclick=attachExisting;$('new-data-file').onclick=createDataFile;$('disconnect-file').onclick=disconnectFile;$('close-file-dialog').onclick=()=>$('file-dialog').close();
+$('connect-folder').onclick=connectFolder;
+setInterval(async()=>{
+ if(!dataHandle||fileBlocked||pending||document.querySelector('dialog[open]'))return;
+ try{const rec=await fileRecord(dataHandle);if(rec.hash===fileHash||pending||document.querySelector('dialog[open]'))return;useLayout(rec.layout);values=rec.values;audit=rec.audit;engine.values=values;fileHash=rec.hash;engine.clear();undo=[];redo=[];renderSheet();updateLayoutUI();refreshHistory();await save(false);showSave('Loaded updates from '+dataHandle.name+' · One editor at a time.');}catch(e){fileBlocked=true;showSave('Cannot refresh the data file. Reconnect before editing.',true);}
+},15000);
+fileStatus();
+
+/* Row structure is shared; entry values remain independent between sheets. */
+const BASE_TEMPLATE=JSON.parse(JSON.stringify(TEMPLATE));
+const defaultLayout=()=>({planes:Array.from({length:18},()=>({work:6,def:5}))});
+let layout=defaultLayout();
+function checkedLayout(x){if(!x||!Array.isArray(x.planes)||x.planes.length<1||x.planes.length>60)throw new Error('Use between 1 and 60 aircraft sections.');return {planes:x.planes.map(p=>{if(!Number.isInteger(p.work)||!Number.isInteger(p.def)||p.work<5||p.work>30||p.def<1||p.def>30)throw new Error('Keep 5–30 workload rows (the first five contain flight information) and 1–30 deferral rows.');return {work:p.work,def:p.def};})};}
+const copyObj=o=>JSON.parse(JSON.stringify(o));
+function rowRef(f,own,maps,override=null){
+ return f.replace(/"(?:[^"]|"")*"|'(?:[^']|'')*'!\$?[A-Z]+\$?\d+|(?:[A-Za-z_][A-Za-z0-9_.]*!)?\$?[A-Z]+\$?\d+/g,t=>{
+  if(t.startsWith('"'))return t;const at=t.lastIndexOf('!'),sn=at<0?own:t.slice(0,at).replace(/^'|'$/g,'').replace(/''/g,"'"),a=at<0?t:t.slice(at+1),m=a.match(/^(\$?[A-Z]+\$?)(\d+)$/);if(!m)return t;let n=+m[2],mapped=override&&sn===own&&n===override[0]?override[1]:maps[sn]?.get(n)?.[0];return (at<0?'':t.slice(0,at+1))+m[1]+(mapped??n);
+ });
+}
+function buildLayout(input){const config=checkedLayout(input),out=copyObj(BASE_TEMPLATE),maps={},desc=[];
+ for(const s of out.sheets)for(const [a,c] of Object.entries(s.cells))c.key=a;
+ for(let si=0;si<2;si++){
+  const base=BASE_TEMPLATE.sheets[si],s=out.sheets[si],entries=[],map=new Map(),planes=[];
+  function add(old,key,p=-1,kind='',idx=-1){entries.push({old,key,p,kind,idx});const n=entries.length;if(!map.has(old))map.set(old,[]);map.get(old).push(n);return n;}
+  for(let r=1;r<=5;r++)add(r,null);
+  config.planes.forEach((p,i)=>{const oldStart=6+Math.min(i,17)*16,start=entries.length+1,extra=i>=18,keyFor=(off,kind,index)=>extra?'plane:'+i+':'+kind+':'+index:null;
+   add(oldStart,keyFor(0,'head',0),i);add(oldStart+1,keyFor(1,'head',1),i);
+   const work=entries.length+1;for(let j=0;j<p.work;j++)add(oldStart+2+Math.min(j,5),j>=6?'extra:'+i+':work:'+j:keyFor(2+j,'work',j),i,'work',j);
+   add(oldStart+8,keyFor(8,'defhead',0),i);add(oldStart+9,keyFor(9,'defhead',1),i);
+   const def=entries.length+1;for(let j=0;j<p.def;j++)add(oldStart+10+Math.min(j,4),j>=5?'extra:'+i+':def:'+j:keyFor(10+j,'def',j),i,'def',j);
+   const end=entries.length;add(oldStart+15,keyFor(15,'space',0),i);
+   planes.push({index:i,start,work,workEnd:work+p.work-1,def,defEnd:def+p.def-1,end,oldStart});
+  });
+  for(let r=294;r<=320;r++)add(r,null);
+  s.cells={};s.merges=[];s.heights=entries.map(e=>base.heights[e.old-1]);s.rows=entries.length;s.planes=planes;maps[s.name]=map;
+  entries.forEach((e,index)=>{const row=index+1;for(let c=1;c<=s.cols;c++){const oldAddr=address(c,e.old),cell=base.cells[oldAddr];if(!cell)continue;const nc=copyObj(cell);nc.key=e.key?e.key+':'+colName(c):oldAddr;
+   if(e.p>=18&&nc.v!=null){const off=e.old-planes[e.p].oldStart;const isData=(off>=2&&off<=7&&(c===1||c===4||c===5||c===18||c===19))||(off>=10&&off<=14&&c!==16);if(isData)nc.v=null;}
+   s.cells[address(c,row)]=nc;
+  }});
+  // Each aircraft block is mapped separately so cloning the last block is unambiguous.
+  const localRows=(e,old)=>entries.map((x,i)=>({x,i})).filter(z=>z.x.old===old&&(e.p<0?z.x.p<0:z.x.p===e.p)).map(z=>z.i+1);
+  for(const range of base.merges){const [c,r,c2,r2]=range;for(let idx=0;idx<entries.length;idx++){const e=entries[idx];if(e.old!==r)continue;const endRows=localRows(e,r2);if(!endRows.length)continue;let end=endRows[endRows.length-1];if(r===r2)end=idx+1;s.merges.push([c,idx+1,c2,end]);}}
+  // Fix variable-height tail/status merges when the original last row was removed.
+  for(const p of planes){for(const c of [1,18]){s.merges=s.merges.filter(m=>!(m[0]===c&&m[1]===p.work));s.merges.push([c,p.work,c,c===1?p.defEnd:p.workEnd]);}}
+  s.validations=[];s.rules=[];
+  for(const v of base.validations){const ranges=[];for(const e of entries){const nr=entries.indexOf(e)+1;for(const a of v.ranges)if(e.old>=a[1]&&e.old<=a[3])ranges.push([a[0],nr,a[2],nr]);}if(ranges.length)s.validations.push({...copyObj(v),ranges});}
+  for(const rule of base.rules){for(let idx=0;idx<entries.length;idx++){const e=entries[idx];for(const a of rule.ranges)if(e.old>=a[1]&&e.old<=a[3]){
+   const origin=rule.ranges[0];let f=rule.formula;
+   // Apply Excel relative references to this source row, then map it to the new row.
+   f=f.replace(/"(?:[^"]|"")*"|\$?[A-Z]+(\$?)(\d+)/g,(t,abs,n)=>t.startsWith('"')?t:abs?t:t.replace(/\d+$/,String(+n+e.old-origin[1])));
+   const localMap=new Map(map);if(e.p>=0){const p=planes[e.p];for(let off=0;off<16;off++){const rr=localRows(e,p.oldStart+off);if(rr.length)localMap.set(p.oldStart+off,rr);}}
+   f=rowRef(f,s.name,{[s.name]:localMap},[e.old,idx+1]);
+   s.rules.push({...copyObj(rule),formula:f,type:'expression',ranges:[[a[0],idx+1,a[2],idx+1]]});
+  }}}
+  for(const p of planes)s.cells[address(1,p.start)].v=p.index+1;
+ }
+ // Workload uses six aircraft across, and expands vertically for added tasks/aircraft.
+ const base=BASE_TEMPLATE.sheets[2],s=out.sheets[2],entries=[],map=new Map(),bands=[];
+ for(let i=0;i<config.planes.length;i+=6){const n=Math.max(...config.planes.slice(i,i+6).map(p=>p.work)),start=entries.length+1;for(let k=0;k<4;k++)entries.push({old:k+1,band:i,start});for(let k=0;k<n;k++)entries.push({old:5+Math.min(k,5),band:i,start,task:k});entries.push({old:11,band:i,start},{old:12,band:i,start});bands.push({index:i,start,work:n});}
+ const bottom=entries.length;for(let r=37;r<=56;r++){entries.push({old:r,band:-1});map.set(r,[entries.length]);}maps[s.name]=map;
+ s.cells={};s.merges=[];s.heights=entries.map(e=>base.heights[e.old-1]);s.rows=entries.length;
+ entries.forEach((e,i)=>{for(let c=1;c<=s.cols;c++){const old=base.cells[address(c,e.old)];if(old){const nc=copyObj(old);nc.key=e.band<0?address(c,e.old):'board:'+e.band+':'+i+':'+c;nc.v=e.band<0?nc.v:null;delete nc.f;s.cells[address(c,i+1)]=nc;}}});
+ for(const b of bands){for(const m of base.merges.filter(m=>m[1]<=12&&m[3]<=12)){const remap=r=>r<=4?b.start+r-1:r<=10?b.start+r-1:b.start+4+b.work+(r-11);s.merges.push([m[0],remap(m[1]),m[2],remap(m[3])]);}}
+ for(const m of base.merges.filter(m=>m[1]>=37))s.merges.push([m[0],m[1]+bottom-36,m[2],m[3]+bottom-36]);
+ for(const [a,c] of Object.entries(base.cells)){const [col,r]=coord(a);if(r>=37&&c.f)s.cells[address(col,r+bottom-36)].f=rowRef(c.f,s.name,maps);}
+ const auto=out.sheets[1];
+ for(const b of bands)for(let j=0;j<6;j++){const p=auto.planes[b.index+j],col=2+j*2;if(!p)continue;const link=(row,ref)=>{const c=s.cells[address(col,row)];if(c)c.f=`=IF('AUTOMATED TURNOVER'!${ref}="","",'AUTOMATED TURNOVER'!${ref})`;};link(b.start,address(4,p.work+3));link(b.start+1,address(1,p.work));link(b.start+3,address(4,p.work));for(let k=0;k<config.planes[p.index].work;k++)link(b.start+4+k,address(5,p.work+k));link(b.start+4+b.work,address(4,p.work+1));}
+ s.validations=base.validations.map(v=>({...copyObj(v),ranges:v.ranges.filter(a=>a[1]>=37).map(a=>[a[0],a[1]+bottom-36,a[2],a[3]+bottom-36])})).filter(v=>v.ranges.length);
+ s.rules=[];for(const r of base.rules){const ranges=r.ranges.filter(a=>a[1]>=37).map(a=>[a[0],a[1]+bottom-36,a[2],a[3]+bottom-36]);if(ranges.length)s.rules.push({...copyObj(r),ranges,formula:rowRef(r.formula,s.name,maps)});}
+ // Reuse the original board's exact status styles, changing only the linked aircraft.
+ for(const b of bands){const bm=new Map();for(let r=1;r<=12;r++)bm.set(r,[r<=10?b.start+r-1:b.start+4+b.work+(r-11)]);for(const rule of base.rules){if(rule.formula.includes('INDIRECT'))continue;const ranges=rule.ranges.filter(a=>a[1]<=12&&a[3]<=12).map(a=>[a[0],bm.get(a[1])[0],a[2],bm.get(a[3])[0]]);if(ranges.length)s.rules.push({...copyObj(rule),ranges,formula:rowRef(rule.formula,s.name,{[s.name]:bm})});}}
+ const statusRules=base.rules.filter(r=>r.formula.includes('INDIRECT')&&r.formula.includes('!R8'));
+ for(const b of bands)for(let j=0;j<6;j++){const p=auto.planes[b.index+j];if(!p)continue;for(const r of statusRules)s.rules.push({...copyObj(r),ranges:[[2+j*2,b.start+1,2+j*2,b.start+1]],formula:`'AUTOMATED TURNOVER'!R${p.work}=${r.formula.slice(r.formula.indexOf(')=')+2)}`});}
+ for(let si=0;si<2;si++){const sh=out.sheets[si],ps=sh.planes,sum=xs=>'=SUM('+xs.join(',')+')',count=(col,criterion)=>sum(ps.map(p=>`COUNTIF(${col}${p.def}:${col}${p.defEnd},"${criterion}")`));
+  sh.cells.J1.f=sum(ps.map(p=>`COUNTIFS(J${p.def}:K${p.defEnd},">="&TODAY(),J${p.def}:K${p.defEnd},"<="&TODAY()+5)`));
+  sh.cells.M1.f=count('Q','POO');sh.cells.M2.f=count('Q','CLEARED');sh.cells.M3.f=count('Q','PIS');sh.cells.O1.f=sum(ps.map(p=>`COUNTIF(D${p.def}:G${p.defEnd},"*APU*")`));sh.cells.A3.f='=COUNT('+ps.map(p=>'A'+p.work).join(',')+')';
+  for(const [a,status] of [['C3','READY'],['D3','AOG'],['E3','IN WORK']])sh.cells[a].f=sum(ps.map(p=>`COUNTIF(R${p.work},"${status}")`));
+  sh.cells.B4.f='=COUNTA('+ps.map(p=>`S${p.work}:S${p.workEnd}`).join(',')+')';sh.cells.O3.f='=WORKLOAD!C'+(bottom+20);
+ }
+ return out;
+}
+function useLayout(next){layout=checkedLayout(next);const model=buildLayout(layout);TEMPLATE.sheets=model.sheets;engine.sheets=new Map(TEMPLATE.sheets.map(s=>[s.name,s]));sheetModels.splice(0,sheetModels.length,...model.sheets);for(const sh of sheetModels){const keys=new Set(Object.values(sh.cells).map(c=>c.key));for(const key of Object.keys(values[sh.name]||{}))if(!keys.has(key))delete values[sh.name][key];}engine.clear();}
+function updateLayoutUI(){$('plane-count').textContent=layout.planes.length+' aircraft sections';}
+function alterLayout(kind,index,delta){
+ if(pending){toast('Wait for the current save to finish.');return;}if(fileBlocked){toast('Reconnect your folder before changing rows.');return;}if(!$('editor-name').value.trim()){toast('Enter your name before changing rows.');$('editor-name').focus();return;}
+ const next=copyObj(layout);if(kind==='plane'){if(delta>0)next.planes.push({work:6,def:5});else next.planes.pop();}else next.planes[index][kind]+=delta;
+ try{const model=buildLayout(next);for(let si=0;si<2;si++){const current=sheetModels[si],keys=new Set(Object.values(model.sheets[si].cells).map(c=>c.key));for(const [a,c] of Object.entries(current.cells)){if(!keys.has(c.key)&&Object.hasOwn(values[current.name]||{},c.key)&&engine.raw(current.name,a)!==null&&engine.raw(current.name,a)!=='')throw new Error('This row or aircraft contains entries in Open or Automated. Clear or export them before removing it.');}}
+  const before=JSON.stringify(layout);useLayout(next);for(const sh of sheetModels){const keys=new Set(Object.values(sh.cells).map(c=>c.key));for(const key of Object.keys(values[sh.name]||{}))if(!keys.has(key))delete values[sh.name][key];}appendAudit([{sheet:'Workbook',addr:'Layout',before,value:JSON.stringify(layout)}],(delta>0?'Add ':'Remove ')+(kind==='plane'?'aircraft':kind==='work'?'workload row':'deferral row'));undo=[];redo=[];refreshHistory();renderTabs();renderSheet();updateLayoutUI();save();
+ }catch(e){toast(e.message);}
+}
+function installRowButtons(){if(active>1)return;for(const p of sheet().planes||[]){for(const [addr,kind] of [[address(5,p.start),'work'],[address(12,p.def-2),'def']]){const cell=rendered.get(addr);if(!cell)continue;const group=document.createElement('span');group.className='row-controls';for(const d of [-1,1]){const b=document.createElement('button');b.textContent=d>0?'+':'−';b.title=(d>0?'Add':'Remove empty')+' '+(kind==='work'?'workload':'deferral')+' row for aircraft '+(p.index+1);b.setAttribute('aria-label',b.title);b.onclick=e=>{e.stopPropagation();alterLayout(kind,p.index,d);};group.append(b);}cell.td.append(group);}}
+}
+$('add-plane').onclick=()=>alterLayout('plane',0,1);$('remove-plane').onclick=()=>alterLayout('plane',0,-1);
+useLayout(defaultLayout());
+</script></body></html>

@@ -1,0 +1,16 @@
+services:
+  minddrop:
+    build: .
+    container_name: minddrop
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - minddrop_data:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  minddrop_data:

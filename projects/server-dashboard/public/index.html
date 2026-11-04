@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Server Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Live monitor</p>
+          <h1>Systems</h1>
+        </div>
+        <div class="top-actions">
+          <span id="last-updated" class="muted">Waiting for data</span>
+          <button id="refresh" class="icon-button" title="Refresh now" aria-label="Refresh now">↻</button>
+        </div>
+      </header>
+
+      <section class="status-strip" aria-label="Current status">
+        <div class="status-tile">
+          <span class="label">This PC</span>
+          <strong id="local-state">Checking</strong>
+        </div>
+        <div class="status-tile">
+          <span class="label">Pi</span>
+          <strong id="pi-state">Checking</strong>
+        </div>
+        <div class="status-tile">
+          <span class="label">ADS-B Sky</span>
+          <strong id="adsb-state">Checking</strong>
+        </div>
+        <div class="status-tile">
+          <span class="label">Star Citizen</span>
+          <strong id="sc-state">Checking</strong>
+        </div>
+        <div class="status-tile">
+          <span class="label">Grafana</span>
+          <strong id="grafana-state">Checking</strong>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="sky-panel" id="adsb-sky-panel">
+          <div class="sky-toolbar">
+            <div>
+              <p class="eyebrow">ADS-B visual replay</p>
+              <h2>Sky Camera</h2>
+            </div>
+            <div class="sky-actions" aria-label="Replay window">
+              <button class="sky-window active" type="button" data-window="5">5m</button>
+              <button class="sky-window" type="button" data-window="15">15m</button>
+              <button class="sky-window" type="button" data-window="30">30m</button>
+            </div>
+          </div>
+          <div class="sky-layout">
+            <div class="sky-canvas-wrap">
+              <canvas id="sky-canvas" width="1100" height="680" aria-label="ADS-B aircraft sky camera"></canvas>
+              <div class="sky-overlay">
+                <span id="sky-feed-state">Waiting for feed</span>
+                <strong id="sky-count">-- aircraft</strong>
+              </div>
+            </div>
+            <aside class="sky-sidebar">
+              <div class="sky-stat">
+                <span>Messages</span>
+                <strong id="sky-messages">--</strong>
+              </div>
+              <div class="sky-stat">
+                <span>Tracked</span>
+                <strong id="sky-tracked">--</strong>
+              </div>
+              <div class="sky-stat">
+                <span>Highest</span>
+                <strong id="sky-highest">--</strong>
+              </div>
+              <div class="sky-stat">
+                <span>Fastest</span>
+                <strong id="sky-fastest">--</strong>
+              </div>
+              <div class="aircraft-list" id="aircraft-list"></div>
+            </aside>
+          </div>
+          <p class="sky-error hidden" id="sky-error"></p>
+        </article>
+
+        <article class="card system-card" id="local-card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Dashboard host</p>
+              <h2 id="local-name">Server</h2>
+            </div>
+            <span class="pill ok" id="local-pill">Online</span>
+          </div>
+          <div class="metrics">
+            <div class="metric">
+              <span>CPU</span>
+              <strong id="local-cpu">--</strong>
+              <div class="bar"><i id="local-cpu-bar"></i></div>
+            </div>
+            <div class="metric">
+              <span>Memory</span>
+              <strong id="local-memory">--</strong>
+              <div class="bar"><i id="local-memory-bar"></i></div>
+            </div>
+            <div class="metric">
+              <span>Uptime</span>
+              <strong id="local-uptime">--</strong>
+            </div>
+          </div>
+          <canvas id="local-chart" class="spark" width="600" height="120" aria-label="Local CPU history"></canvas>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Disk</th><th>Used</th><th>Free</th></tr>
+              </thead>
+              <tbody id="local-disks"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="card system-card" id="pi-card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Raspberry Pi</p>
+              <h2 id="pi-name">dashpi</h2>
+            </div>
+            <span class="pill warn" id="pi-pill">Checking</span>
+          </div>
+          <div class="metrics">
+            <div class="metric">
+              <span>CPU</span>
+              <strong id="pi-cpu">--</strong>
+              <div class="bar"><i id="pi-cpu-bar"></i></div>
+            </div>
+            <div class="metric">
+              <span>Memory</span>
+              <strong id="pi-memory">--</strong>
+              <div class="bar"><i id="pi-memory-bar"></i></div>
+            </div>
+            <div class="metric">
+              <span>Temp</span>
+              <strong id="pi-temp">--</strong>
+            </div>
+          </div>
+          <canvas id="pi-chart" class="spark" width="600" height="120" aria-label="Pi CPU history"></canvas>
+          <p id="pi-error" class="error-line hidden"></p>
+          <div class="service-row" id="pi-services"></div>
+        </article>
+
+        <article class="card sc-card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Official RSI status</p>
+              <h2>Star Citizen</h2>
+            </div>
+            <a class="link-button" href="https://status.robertsspaceindustries.com/" target="_blank" rel="noreferrer">Open RSI</a>
+          </div>
+          <div class="sc-status" id="sc-status-block">
+            <span class="beacon"></span>
+            <strong id="sc-status">Checking</strong>
+          </div>
+          <div class="component-list" id="sc-components"></div>
+          <p id="sc-summary" class="summary"></p>
+        </article>
+
+        <article class="card grafana-card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Existing homelab dashboard</p>
+              <h2 id="grafana-title">Grafana</h2>
+            </div>
+            <a class="link-button" id="grafana-link" href="http://127.0.0.1:3000/d/homelab-hardware/homelab-hardware-monitor?orgId=1&from=now-1h&to=now&timezone=browser&refresh=10s" target="_blank" rel="noreferrer">Open Grafana</a>
+          </div>
+          <div class="grafana-status">
+            <span class="pill warn" id="grafana-pill">Checking</span>
+            <strong id="grafana-latency">--</strong>
+          </div>
+          <p id="grafana-summary" class="summary"></p>
+        </article>
+
+        <article class="card process-card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Local activity</p>
+              <h2>Top processes</h2>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Process</th><th>CPU time</th><th>Memory</th></tr>
+              </thead>
+              <tbody id="processes"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

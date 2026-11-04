@@ -1,0 +1,100 @@
+LAS TURNOVER — FOLDER VERSION
+
+1. Extract this entire ZIP into a folder on your computer or in your locally
+   synced OneDrive / SharePoint folder. Do not run the HTML from inside the ZIP.
+2. Open "LAS Turnover.html" in Microsoft Edge or Chrome. No installation or
+   Excel macros are needed. Opening an HTML document in the SharePoint website
+   may download or preview it; use the locally synced folder for this version.
+3. Enter your name at the top. Choose Connect data file, then
+   "Connect folder (data + log)", and select this folder. Load the folder.
+   Reconnect the folder every time you open the app.
+
+SAVING AND THE CHANGE LOG
+
+Each applied cell edit, copy, undo/redo, and row/aircraft change saves automatically.
+The status line shows success or a saving error.
+
+LAS-Turnover-data.json contains the turnover, row layout, and full change history.
+LAS-Turnover-log.csv contains the same change history in a readable table.
+The CSV records timestamp, editor, action, sheet/cell, old value, and new value.
+Editor names are self-entered, not authenticated Microsoft identities.
+Choose Change log to review changes or download the complete log.
+
+The data file includes the authoritative history. If the CSV write fails after
+the data is saved, the app reports that error; reconnecting the folder rebuilds
+the CSV from the saved history. This is an editable activity log, not a
+tamper-proof compliance audit system.
+
+Without a connected folder, edits save only in this browser on this device.
+Save backup downloads a JSON copy with all entries, layout, and history.
+Restore backup loads a previous JSON copy. Keep backups for shift handovers.
+The app does not modify the original Excel workbook or rewrite its HTML file.
+
+ONE EDITOR AT A TIME
+
+This folder version is NOT simultaneous coauthoring. SharePoint/OneDrive file
+sync alone cannot safely coordinate multiple editors. Designate one editor,
+close the app, and wait for OneDrive to finish syncing before handing off.
+The app checks whether the data file changed before writing and pauses on a
+detected conflict, but sync delays can still allow competing saves.
+
+A future simultaneous-editing version needs a shared service, such as a
+SharePoint List with Microsoft sign-in and version checks. No company server,
+tenant, permissions, or live SharePoint integration has been configured here.
+
+WORKING WITH THE SHEETS
+
+Double-click a cell, select it and press Enter, or use Edit cell.
+Dates and status dropdowns retain their workbook formats. Formula cells update
+automatically and are read-only. The zoom menu can enlarge the sheet.
+
+OPEN TURNOVER is the working turnover.
+Copy Open -> Automated takes a snapshot, replacing AUTOMATED TURNOVER entries.
+AUTOMATED TURNOVER remains independently editable after that copy.
+WORKLOAD reads from Automated, including added aircraft and workload rows.
+Later changes in Open reach Automated only when you copy again.
+TurnOver Summery remains the original manual report layout.
+The hidden testing tabs are retained as reference copies.
+
+ADDING AND REMOVING SPACE
+
+Use + / - on each blue workload heading or yellow deferral heading to change
+the number of rows for that aircraft. The structure changes in both Open and
+Automated, while their entries remain separate. Workload expands to display
+the added tasks. It retains its six-aircraft-across arrangement.
+
+Use + Aircraft / - Aircraft to add an aircraft or remove the last one.
+All views show the active section count; the two turnover sheets and the
+Workload board follow the same aircraft structure. An empty section is not
+counted as an aircraft in station until its tail number is entered.
+
+Removal is blocked if the affected row/section contains entered data in either
+Open or Automated. Clear or export that data first. Limits: 1–60 aircraft,
+5–30 workload rows (five retain the flight fields), 1–30 deferral rows.
+Structural changes clear session cell Undo/Redo history and enter the log.
+
+EXCEL EXPORT FOR THE M: DRIVE
+
+Choose Export Excel and save the downloaded .xlsx to the M: drive. The export
+contains all sheets, current entries, added rows/aircraft, Excel formulas,
+merged cells, cell styles, dropdowns, and conditional formatting. It is a
+snapshot, not a live connection back to this app. Excel recalculates on opening.
+
+Aircraft, deferral, and assignment totals now cover all active sections and
+added rows. This corrects the original workbook's incomplete total ranges.
+Other workbook behavior is retained: division by zero shows #DIV/0!, the
+original "d" placeholders in the manning list count as 32 techs until edited,
+and the original restricted-date validation is retained where it exists.
+
+Print / PDF prints the active sheet with its colors; enable background graphics
+in the browser print dialog when needed. Browser fonts, patterned fills, and
+page breaks can differ slightly from Excel.
+
+VALIDATION
+
+Checked editing, browser persistence, independent Open/Automated values,
+Workload links, status colors, date-warning boundaries, added rows/aircraft,
+nonoverlapping merges, log entries, and expanded Excel exports read back as
+workbooks. Storage tests cover changed-file conflicts and log-write failures.
+Live OneDrive synchronization and your workplace's folder-access permissions
+still need a first test on the computer where you will use the app.

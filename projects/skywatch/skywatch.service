@@ -1,0 +1,17 @@
+[Unit]
+Description=SkyWatch Tactical ADS-B dashboard
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=adsb
+WorkingDirectory=/home/adsb/skywatch
+Environment=SKYWATCH_PORT=8088
+Environment=SKYWATCH_AIRCRAFT_URL=http://127.0.0.1/tar1090/data/aircraft.json
+ExecStart=/usr/bin/python3 /home/adsb/skywatch/app.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
